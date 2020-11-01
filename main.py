@@ -8,6 +8,7 @@ from linebot.exceptions import  InvalidSignatureError
 
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
+import datetime
 
 app = Flask(__name__)
 
@@ -26,6 +27,8 @@ def hello_world():
 def aho():
     return str(10+20)
 
+
+#Webhook設定
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -43,11 +46,16 @@ def callback():
 
     return 'OK'
 
+##メッセージ受信時
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+#        TextSendMessage(text=event.message.text)
+        TextSendMessage(text="helllo world")
+        )
+
+
 
 if __name__ == "__main__":
 #    app.run()
