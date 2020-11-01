@@ -49,12 +49,11 @@ def callback():
 ##メッセージ受信時
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    lis=[]
-    lis.append(event.message.text)
+    text2=event.message.text
     line_bot_api.reply_message(
         event.reply_token,
 #        TextSendMessage(text=event.message.text)
-        TextSendMessage(text="リマインダを起動しました\nキーワードを入力して通知時刻を設定してください。例：1月1日0時0分→1,1,0,0"),
+        TextSendMessage(text=text2),
         )
 
 
