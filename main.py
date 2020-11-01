@@ -52,8 +52,7 @@ def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
 #        TextSendMessage(text=event.message.text)
-        TextSendMessage(text=event.message.text+"だよ。")
-
+        TextSendMessage(text="リマインダを起動しました\nキーワードを入力して通知時刻を設定してください。例：1月1日0時0分→1,1,0,0")
         )
 
 
