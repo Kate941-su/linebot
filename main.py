@@ -23,11 +23,6 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 def hello_world():
     return "hello what your name?"
 
-@app.route("/kaito")
-def aho():
-    return str(10+20)
-
-
 #Webhook設定
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -79,6 +74,11 @@ def response_message(event):
 
     line_bot_api.reply_message(event.reply_token, messages=messages)
 
+
+@handler.add(MessageEvent,message=TextMessage)
+def push_message(event):   
+    line_bot_api.push_message("<to>",TextMessage(text="helloworld"))
+    
 
 
 if __name__ == "__main__":
