@@ -68,7 +68,7 @@ def response_message(event):
         event.reply_token,
         TextSendMessage("I will make a reservation\nplease tell me your plan"),
     )
-    line_bot_api.reply_message(event.reply_token, messages=Ok! I reminded!!)
+    line_bot_api.reply_message(event.reply_token, messages="Ok! I reminded!!")
 
 """
     profile = line_bot_api.get_profile(event.source.user_id)
