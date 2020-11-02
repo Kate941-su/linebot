@@ -23,6 +23,11 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 def hello_world():
     return "hello what your name?"
 
+@app.route("/kaito")
+def aho():
+    return str(10+20)
+
+
 #Webhook設定
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -68,17 +73,12 @@ def response_message(event):
                                    template=ButtonsTemplate(
                                        thumbnail_image_url=profile.picture_url,
                                        title=profile.display_name,
-                                       text=f"User Id: {profile.user_id}...\n"
+                                       text=f"User Id: {profile.user_id[:5]}...\n"
                                             f"Status Message: {status_msg}",
                                        actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
+
     line_bot_api.reply_message(event.reply_token, messages=messages)
 
-
-"""
-@handler.add(MessageEvent,message=TextMessage)
-def push_message(event):   
-    line_bot_api.push_message("<to>",TextMessage(text="helloworld"))
-""" 
 
 
 if __name__ == "__main__":
