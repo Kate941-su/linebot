@@ -60,8 +60,16 @@ def handle_message(event):
         )
 """
 
+lis=[0]
+
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
+    send_text=event.message.text
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage("I will make a reservation")
+    )
+"""
     profile = line_bot_api.get_profile(event.source.user_id)
 
     status_msg = profile.status_message
@@ -78,7 +86,7 @@ def response_message(event):
                                        actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
 
     line_bot_api.reply_message(event.reply_token, messages=messages)
-
+"""
 
 
 if __name__ == "__main__":
