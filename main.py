@@ -75,11 +75,11 @@ def response_message(event):
     line_bot_api.reply_message(event.reply_token, messages=messages)
     return profile.user_id
 
-
+"""
 @handler.add(MessageEvent,message=TextMessage)
 def push_message(event):   
     line_bot_api.push_message("<to>",TextMessage(text="helloworld"))
-    
+""" 
 
 
 if __name__ == "__main__":
