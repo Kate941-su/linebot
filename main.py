@@ -64,12 +64,16 @@ lis=[0]
 
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage("I will make a reservation\nplease tell me your plan"),
-    )
-    line_bot_api.reply_message(event.reply_token, messages="Ok! I reminded!!")
-
+    if event.message.text == "あ":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage("I will make a reservation\nplease tell me your plan"),
+        )
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage("hoge"),
+        )
 """
     profile = line_bot_api.get_profile(event.source.user_id)
 
