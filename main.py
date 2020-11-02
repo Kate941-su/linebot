@@ -66,7 +66,8 @@ lis=[0]
 def response_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage("I will make a reservation\n","What do you want to remind?")
+        TextSendMessage("I will make a reservation\n"),
+        TextSendMessage("What do you want to remind your event??")
     )
 """
     profile = line_bot_api.get_profile(event.source.user_id)
