@@ -47,6 +47,7 @@ def callback():
     return 'OK'
 
 ##メッセージ受信時
+"""
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     text2=event.message.text
@@ -55,6 +56,26 @@ def handle_message(event):
 #        TextSendMessage(text=event.message.text)
         TextSendMessage(text=text2),
         )
+"""
+
+@handler.add(MessageEvent, message=TextMessage)
+def response_message(event):
+    profile = line_bot_api.get_profile(event.source.user_id)
+
+    status_msg = profile.status_message
+    if status_msg != "None":
+        # LINEに登録されているstatus_messageが空の場合は、"なし"という文字列を代わりの値とする
+        status_msg = "なし"
+
+    messages = TemplateSendMessage(alt_text="Buttons template",
+                                   template=ButtonsTemplate(
+                                       thumbnail_image_url=profile.picture_url,
+                                       title=profile.display_name,
+                                       text=f"User Id: {profile.user_id[:5]}...\n"
+                                            f"Status Message: {status_msg}",
+                                       actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
+
+    line_bot_api.reply_message(event.reply_token, messages=messages)
 
 
 
