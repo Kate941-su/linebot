@@ -10,6 +10,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSe
 
 import datetime
 
+import xlrd
+
 app = Flask(__name__)
 
 #環境変数取得
@@ -63,10 +65,14 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
+
+    wb=xlrd.open_workbook("planandday1.xls")
+    ws = wb.sheet_by_name('plan')
+    cell = ws.cell(1,2)
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"),
+            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(cell)),
         )
 
     else:
