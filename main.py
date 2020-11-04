@@ -10,7 +10,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSe
 
 import datetime
 
-import xlrd
+import xlrd,openpyxl
 from random import randint
 
 app = Flask(__name__)
@@ -75,6 +75,11 @@ def response_message(event):
     latest_row=ws.cell(col_end-1,row_end-2).value
     latest_row=int(latest_row)#cast float -> int
     issue_id=randint(0,10000)
+    text2=event.message.text
+    wb=openpyxl.load_workbook("sample.xlsx")
+    ws=wb.worksheets[0]
+    ws.cell(row=latest_row+1,column=buffer_col,value=text2)
+    wb.save("sample.xlsx")
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
