@@ -67,7 +67,7 @@ def handle_message(event):
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
 
-    wb=xlrd.open_workbook("planandday1.xlsx")
+    wb=xlrd.open_workbook("./planandday1.xlsx")
     ws = wb.sheet_by_name('plan')
     row_end=len(ws.row(0))
     col_end=len(ws.col(0))
