@@ -78,7 +78,7 @@ def response_message(event):
     text2=event.message.text
     wb=openpyxl.load_workbook("sample.xlsx")
     ws=wb.worksheets[0]
-    ws.cell(row=latest_row,column=buffer_col,value=text2)
+    ws.cell(row=latest_row-1,column=buffer_col,value=text2)
     wb.save("sample.xlsx")
     if event.message.text == "予約":
         line_bot_api.reply_message(
