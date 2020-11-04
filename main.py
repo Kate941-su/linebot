@@ -11,6 +11,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSe
 import datetime
 
 import xlrd
+from random import randint
 
 app = Flask(__name__)
 
@@ -70,12 +71,14 @@ def response_message(event):
     ws = wb.sheet_by_name('plan')
     row_end=len(ws.row(0))
     col_end=len(ws.col(0))
-    latest_id=ws.cell(col_end-1,row_end-1).value
-    latest_id=int(latest_id)#cast float -> int
+    latest_row=ws.cell(col_end-1,row_end-2).value
+    latest_row=int(latest_row)#cast float -> int
+    issue_id=randint(0,10000)
+
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(latest_id)),
+            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(latest_id)+str(issue_id))
         )
 
     else:
