@@ -60,11 +60,9 @@ def handle_message(event):
         )
 """
 
-lis=[0]
 
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
-    flag=0
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
