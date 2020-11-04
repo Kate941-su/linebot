@@ -78,7 +78,7 @@ def response_message(event):
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(latest_id)+str(issue_id))
+            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(latest_row)+str(issue_id))
         )
 
     else:
