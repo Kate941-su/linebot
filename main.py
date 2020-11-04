@@ -75,7 +75,7 @@ def response_message(event):
     latest_row=ws.cell(col_end-1,row_end-2).value
     latest_row=int(latest_row)#cast float -> int
     issue_id=randint(0,10000)
-    ws.cell(latest_row+1,buffer_col,value=event.message.text)
+    ws.cell(latest_row+1,buffer_col).value=event.message.text
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
