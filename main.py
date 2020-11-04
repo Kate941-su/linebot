@@ -68,11 +68,12 @@ def response_message(event):
 
     wb=xlrd.open_workbook("planandday1.xls")
     ws = wb.sheet_by_name('plan')
-    cell = ws.cell(1,2)
+    latest_id=ws.cell(col_end-1,row_end-1).value
+    latest_id=int(latest_id)#cast float -> int
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(cell)),
+            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(latest_id)),
         )
 
     else:
