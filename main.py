@@ -68,6 +68,8 @@ def response_message(event):
 
     wb=xlrd.open_workbook("planandday1.xls")
     ws = wb.sheet_by_name('plan')
+    row_end=len(ws.row(0))
+    col_end=len(ws.col(0))
     latest_id=ws.cell(col_end-1,row_end-1).value
     latest_id=int(latest_id)#cast float -> int
     if event.message.text == "予約":
