@@ -71,14 +71,15 @@ def response_message(event):
     ws = wb.sheet_by_name('plan')
     row_end=len(ws.row(0))
     col_end=len(ws.col(0))
+    buffer_col=6
     latest_row=ws.cell(col_end-1,row_end-2).value
     latest_row=int(latest_row)#cast float -> int
     issue_id=randint(0,10000)
-
+    ws.cell(row=latest_row+1,col=buffer_col,value=event.message.text)
     if event.message.text == "予約":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+str(latest_row)+str(issue_id))
+            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+"\n"+str(latest_row)+"\n"+str(issue_id))
         )
 
     else:
