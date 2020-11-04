@@ -68,20 +68,13 @@ def response_message(event):
             event.reply_token,
             TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"),
         )
-        flag=1
-
-    if flag == 1:
-        line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage("てすと"),
-        )
 
     else:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage("まずは予約と入力してください"),
         )
-        flag=0
+
 """
     profile = line_bot_api.get_profile(event.source.user_id)
 
