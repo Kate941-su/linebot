@@ -123,6 +123,7 @@ def response_message(event):
             event.reply_token,
             TextSendMessage(text="何の予定がありますか？"),
             )
+            ws_w.cell(row=2,column=flag,value=3)
             ws_w.cell(row=2,column=buffer2,value=event.message.text)
 
         elif Flag == 3:
