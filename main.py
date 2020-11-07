@@ -123,7 +123,7 @@ def response_message(event):
             ws = wb["plan"]#get sheet data(ws=work sheet)
             #型を判定する
             #datetime型で方が一致していた時
-            if is_message_date != "今日" or "明日" or "明後日":   
+            if str(is_message_date) != "今日" or "明日" or "明後日":   
                 if isinstance(ws.cell(row=2,column=buffer1).value,type(datetime)):
                     line_bot_api.reply_message(
                     event.reply_token,
