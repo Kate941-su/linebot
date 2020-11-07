@@ -1,6 +1,6 @@
 from flask import Flask, request, abort
 
-import os
+import os,re
 
 from linebot import LineBotApi, WebhookHandler
 
@@ -80,6 +80,8 @@ def response_message(event):
     buffer3=13
     error_catch=14
 
+#入力ミス防止    
+    error_flag=0
     Flag=0#条件分岐のためのflag
     issue_id=randint(0,1000)
     wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
@@ -94,6 +96,8 @@ def response_message(event):
             TextSendMessage(text="error occured!\nplease try again at start!!"),
         )
         ws_w.cell(row=2,column=flag,value=0)
+
+#Flag1 phase
 
     else:
         if Flag==0:
@@ -111,20 +115,61 @@ def response_message(event):
                 ws_w.cell(row=2,column=flag,value=0)
 
         elif Flag==1:
-            line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
-            )
-            ws_w.cell(row=2,column=flag,value=2)
-            ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+
+            is_message_date = event.message.text
+            ws_w.cell(row=2,column=buffer1,value=is_message_date)
+            wb_w.save("sample1.xlsx")
+            wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
+            ws = wb["plan"]#get sheet data(ws=work sheet)
+            #型を判定する
+            #datetime型で方が一致していた時
+            if is_message_date != "今日" or "明日" or "明後日":   
+                if isinstance(is_message_date,datetime):
+                    line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                    )
+                    ws_w.cell(row=2,column=flag,value=2)
+                    ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+                #間違っていた時
+                else:
+                    line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="入力ミスがあります。\n日付を教えてください\nex)明日、今日、明後日、11月6日"),
+                    )
+                    ws_w.cell(row=2,column=flag,value=1)
+#Flag2 phase
 
         elif Flag==2:
-            line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text="何の予定がありますか？\n"+str(type(event.message.text))),
-            )
-            ws_w.cell(row=2,column=flag,value=3)
-            ws_w.cell(row=2,column=buffer2,value=event.message.text)
+            r_message=event.message.text           
+            try:
+                k=0
+                r_message=r_message.split(":")
+                for i in r_message:
+                    r_message[k]=int(i)
+                    k+=1
+                if r_message[0]>=25 or r_message[1]>=60:
+                    error_flag=1
+            except:
+                error_flag=1
+
+
+            if error_flag == 0:    
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="何の予定がありますか？\n"+str(type(event.message.text))),
+                )
+                ws_w.cell(row=2,column=flag,value=3)
+                ws_w.cell(row=2,column=buffer2,value=event.message.text)
+
+            else:
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="入力ミスがあります。\n何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                )
+                ws_w.cell(row=2,column=flag,value=2)
+                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+#Flag3 phase
 
         elif Flag == 3:
             line_bot_api.reply_message(

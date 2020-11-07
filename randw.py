@@ -48,6 +48,10 @@ ws_w.cell(row=2,column=yyyy).value=year
 
 #flag1 phase
 #today
+#確認
+#print(type(ws.cell(row=5,column=buffer1).value))
+#print(isinstance(ws.cell(row=5,column=buffer1).value,datetime))
+
 if ws.cell(row=3,column=buffer1).value=="今日":
     ws_w.cell(row=3,column=MM,value=month)
     day=today
@@ -97,7 +101,7 @@ if ws.cell(row=2,column=buffer1).value == "明日":
             ws_w.cell(row=2,column=MM,value=Month+1)
     print(int(ws.cell(row=2,column=MM).value))
     wb_w.save("sample.xlsx")
-    
+
     #年明け処理
     wb=px.load_workbook("sample.xlsx")#reopen xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
