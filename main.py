@@ -135,7 +135,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=ws.cell(row=2,column=buffer1).value),
+                    TextSendMessage(text="原因探索中"+type(ws.cell(row=2,column=buffer1).value)),
                     )
                     ws_w.cell(row=2,column=flag,value=1)
 #Flag2 phase
