@@ -50,7 +50,7 @@ ws_w.cell(row=2,column=yyyy).value=year
 #today
 #確認
 #print(type(ws.cell(row=5,column=buffer1).value))
-print(isinstance(ws.cell(row=5,column=buffer1).value,type(datetime)))
+print(isinstance(type(ws.cell(row=5,column=buffer1).value),type(datetime)))
 
 if ws.cell(row=3,column=buffer1).value=="今日":
     ws_w.cell(row=3,column=MM,value=month)

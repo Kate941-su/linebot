@@ -123,8 +123,8 @@ def response_message(event):
             ws = wb["plan"]#get sheet data(ws=work sheet)
             #型を判定する
             #datetime型で方が一致していた時
-            if ws.cell(row=2,column=buffer1).value != "今日" or "明日" or "明後日":   
-                if isinstance(ws.cell(row=2,column=buffer1).value,type(datetime)):
+            if str(ws.cell(row=2,column=buffer1).value) != "今日" or "明日" or "明後日":   
+                if isinstance(type(ws.cell(row=2,column=buffer1).value),type(datetime)):
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
