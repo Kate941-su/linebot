@@ -91,8 +91,9 @@ def response_message(event):
     line_bot_api.reply_message(
         event.reply_token,
 #        TextSendMessage(text=event.message.text)
-        TextSendMessage(text=Flag),
+        TextSendMessage(text=ws.cell(row=2,column=error_catch).value),
         )
+
 
 """
     if int(ws.cell(row=2,column=error_catch).value)==1:
@@ -116,8 +117,8 @@ def response_message(event):
                 ws_w.cell(row=2,column=flag,value=0)
             )
     wb_w.save("sample1.xlsx")
-
-
+"""
+"""
         elif Flag==1:
             line_bot_api.reply_message(
             event.reply_token,
