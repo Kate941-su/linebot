@@ -10,7 +10,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSe
 
 import datetime
 
-import xlrd,openpyxl
+import openpyxl as px
 from random import randint
 
 app = Flask(__name__)
@@ -66,32 +66,80 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
+    plan=1
+    yyyy=2
+    MM=3
+    dd=4
+    hh=5
+    mm=6
+    issue_id_col=9
+    flag=10#列の名前のflag
+    buffer1=11
+    buffer2=12
+    buffer3=13
+    error_catch=14
 
-    wb=xlrd.open_workbook("sample.xlsx")
-    ws = wb.sheet_by_name('plan')
-    row_end=len(ws.row(0))
-    col_end=len(ws.col(0))
-    buffer_col=7
-    latest_row=ws.cell(col_end-1,row_end-2).value
-    latest_row=int(latest_row)#cast float -> int
-    issue_id=randint(0,10000)
-
-    if event.message.text == "予約":
-        text2=event.message.text
-        wb=openpyxl.load_workbook("sample.xlsx")
-        ws=wb.worksheets[0]
-        ws.cell(row=latest_row-1,column=buffer_col,value="sample")
-        wb.save("sample.xlsx")
+    Flag=0#条件分岐のためのflag
+    issue_id=randint(0,1000)
+    wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
+    ws = wb["plan"]#get sheet data(ws=work sheet)
+    wb_w=px.load_workbook("sample1.xlsx")
+    ws_w=wb_w.worksheets[0]
+    Flag=ws.cell(row=2,column=flag).value
+    if int(ws.cell(row=2,column=error_catch).value)==1:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage("予約を始めます。時刻と日時を次のように入力してください。\nex)１１月１１日１１時１１分"+"\n"+str(latest_row)+"\n"+str(issue_id))
+            TextSendMessage(text="error occured!\nplease try again at start!!"),
+            ws_w.cell(row=2,column=flag,value=0)
         )
-
     else:
-        line_bot_api.reply_message(
+        if Flag==0:
+            if event.message.text == "予約":
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11月6日"),
+                ws_w.cell(row=2,column=flag,value=1)
+            )
+            else:
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="予約したいときは”予約と入力してください”"),
+                ws_w.cell(row=2,column=flag,value=0)
+            )
+    wb_w.save("sample1.xlsx")
+"""
+        elif Flag==1:
+            line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage("まずは予約と入力してください"),
-        )
+            TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+            ws_w.cell(row=issue_id,column=buffer1,value=event.message.text),
+            ws_w.cell(row=2,column=flag,value=2)
+
+            )
+
+        elif Flag==2:
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="何の予定がありますか？"),
+            ws_w.cell(row=2,column=buffer2,value=event.message.text),
+            ws_w.cell(row=2,column=flag,value=3)
+
+            )
+        
+        elif Flag == 3:
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="予約を完了しました"),
+            ws_w.cell(row=2,column=buffer3,value=event.message.text),
+            ws_w.cell(row=2,column=flag,value=0)         
+           )
+"""
+     
+
+
+
+#error時の対応
+
 
 """
     profile = line_bot_api.get_profile(event.source.user_id)
