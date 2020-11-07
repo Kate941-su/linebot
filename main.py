@@ -88,11 +88,10 @@ def response_message(event):
     ws_w=wb_w.worksheets[0]
     Flag=ws.cell(row=2,column=flag).value
 
-    text2=event.message.text
     line_bot_api.reply_message(
         event.reply_token,
 #        TextSendMessage(text=event.message.text)
-        TextSendMessage(text=text2),
+        TextSendMessage(text=Flag),
         )
 
 """
