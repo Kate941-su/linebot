@@ -91,12 +91,13 @@ def response_message(event):
     Flag=int(ws.cell(row=2,column=flag).value)
     Mistake=int(ws.cell(row=2,column=mistake).value)
 
-    if int(ws.cell(row=2,column=mistake).value)==3:
+    if int(ws.cell(row=2,column=mistake).value)==2:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="try again at first!!"),
         )
         ws_w.cell(row=2,column=mistake,value=0)
+        ws_w.cell(row=2,column=flag,value=0)
 
 #Flag1 phase
 
