@@ -117,7 +117,7 @@ def response_message(event):
         elif Flag==1:
 
             is_message_date = event.message.text
-            is_message_date = ws_w.cell(row=2,column=buffer1,value=is_message_date)
+            ws_w.cell(row=2,column=buffer1,value=is_message_date)
             wb_w.save("sample1.xlsx")
             wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
