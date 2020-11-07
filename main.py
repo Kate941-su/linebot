@@ -79,7 +79,7 @@ def response_message(event):
     buffer2=12
     buffer3=13
     error_catch=14
-
+    mistake=15
 #入力ミス防止    
     error_flag=0
     Flag=0#条件分岐のためのflag
@@ -89,13 +89,14 @@ def response_message(event):
     wb_w=px.load_workbook("sample1.xlsx")
     ws_w=wb_w.worksheets[0]
     Flag=int(ws.cell(row=2,column=flag).value)
+    Mistake=int(ws.cell(row=2,column=mistake).value)
 
-    if int(ws.cell(row=2,column=error_catch).value)==1:
+    if int(ws.cell(row=2,column=mistake).value)==3:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="error occured!\nplease try again at start!!"),
+            TextSendMessage(text="try again at first!!"),
         )
-        ws_w.cell(row=2,column=flag,value=0)
+        ws_w.cell(row=2,column=mistake,value=0)
 
 #Flag1 phase
 
@@ -178,6 +179,7 @@ def response_message(event):
                 )
                 ws_w.cell(row=2,column=flag,value=2)
                 ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+                ws_w.cell(row=2,column=mistake,value=Mistake+1)
 #Flag3 phase
 
         elif Flag == 3:
