@@ -121,7 +121,7 @@ def response_message(event):
         elif Flag==2:
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="何の予定がありますか？"),
+            TextSendMessage(text="何の予定がありますか？\n"+str(type(event.message.text))),
             )
             ws_w.cell(row=2,column=flag,value=3)
             ws_w.cell(row=2,column=buffer2,value=event.message.text)
