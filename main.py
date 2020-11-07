@@ -121,7 +121,7 @@ def response_message(event):
             wb_w.save("sample1.xlsx")
             wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
-            is_message_date = ws.cell(row=2,column=buffer1).value
+            is_message_date = str(ws.cell(row=2,column=buffer1).value)
             #型を判定する
             #datetime型で方が一致していた時
             if is_message_date != "今日" or "明日" or "明後日":   
