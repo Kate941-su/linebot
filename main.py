@@ -86,29 +86,29 @@ def response_message(event):
     ws = wb["plan"]#get sheet data(ws=work sheet)
     wb_w=px.load_workbook("sample1.xlsx")
     ws_w=wb_w.worksheets[0]
-    Flag=ws.cell(row=2,column=flag).value
+    Flag=int(ws.cell(row=2,column=flag).value)
 
     if int(ws.cell(row=2,column=error_catch).value)==1:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="error occured!\nplease try again at start!!"),
-            ws_w.cell(row=2,column=flag,value=0)
         )
+        ws_w.cell(row=2,column=flag,value=0)
 
     else:
         if Flag==0:
             if event.message.text == "予約":
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11月6日"),
-                ws_w.cell(row=2,column=flag,value=1)
+                TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11月6日"),               
             )
+                ws_w.cell(row=2,column=flag,value=1)
             else:
                 line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text="予約したいときは”予約と入力してください”"),
-                ws_w.cell(row=2,column=flag,value=0)
             )
+                ws_w.cell(row=2,column=flag,value=0)
     wb_w.save("sample1.xlsx")
 
 """
