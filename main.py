@@ -52,7 +52,7 @@ def callback():
 #kokoまでは同じ
 
 ##メッセージ受信時
-
+"""
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     text2=event.message.text
@@ -64,6 +64,7 @@ def handle_message(event):
 
 
 """
+
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
     plan=1
@@ -86,6 +87,15 @@ def response_message(event):
     wb_w=px.load_workbook("sample1.xlsx")
     ws_w=wb_w.worksheets[0]
     Flag=ws.cell(row=2,column=flag).value
+
+    text2=event.message.text
+    line_bot_api.reply_message(
+        event.reply_token,
+#        TextSendMessage(text=event.message.text)
+        TextSendMessage(text=text2),
+        )
+
+"""
     if int(ws.cell(row=2,column=error_catch).value)==1:
         line_bot_api.reply_message(
             event.reply_token,
@@ -107,6 +117,7 @@ def response_message(event):
                 ws_w.cell(row=2,column=flag,value=0)
             )
     wb_w.save("sample1.xlsx")
+
 
         elif Flag==1:
             line_bot_api.reply_message(
