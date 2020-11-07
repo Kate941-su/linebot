@@ -124,7 +124,7 @@ def response_message(event):
             #型を判定する
             #datetime型で方が一致していた時
             if is_message_date != "今日" or "明日" or "明後日":   
-                if isinstance(ws_w.cell(row=2,column=buffer1,value=is_message_date),datetime):
+                if isinstance(ws.cell(row=2,column=buffer1).value,datetime):
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
