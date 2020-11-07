@@ -135,7 +135,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(isinstance(type(ws.cell(row=2,column=buffer1).value)),type(datetime))+str(str(ws.cell(row=2,column=buffer1).value) is "今日" or "明日" or "明後日")),
+                    TextSendMessage(text=str(isinstance(type(ws.cell(row=2,column=buffer1).value),type(datetime)))+str(str(ws.cell(row=2,column=buffer1).value) is "今日" or "明日" or "明後日")),
                     )
                     ws_w.cell(row=2,column=flag,value=1)
 #Flag2 phase
