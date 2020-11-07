@@ -51,7 +51,7 @@ ws_w.cell(row=2,column=yyyy).value=year
 #確認
 #print(type(ws.cell(row=5,column=buffer1).value))
 print(isinstance(type(ws.cell(row=5,column=buffer1).value),type(datetime)))
-
+print(str(ws.cell(row=2,column=buffer1).value) == "今日" or "明日" or "明後日")
 if ws.cell(row=3,column=buffer1).value=="今日":
     ws_w.cell(row=3,column=MM,value=month)
     day=today

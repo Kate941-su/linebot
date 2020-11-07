@@ -123,21 +123,30 @@ def response_message(event):
             ws = wb["plan"]#get sheet data(ws=work sheet)
             #型を判定する
             #datetime型で方が一致していた時
-            if str(ws.cell(row=2,column=buffer1).value) != "今日" or "明日" or "明後日":   
+            if str(ws.cell(row=2,column=buffer1).value) == "今日" or "明日" or "明後日":   
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                )
+                ws_w.cell(row=2,column=flag,value=2)
+                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+                #間違っていた時
+            else:
                 if isinstance(type(ws.cell(row=2,column=buffer1).value),type(datetime)):
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
                     )
                     ws_w.cell(row=2,column=flag,value=2)
-                    ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
-                #間違っていた時
+                    ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)  
+              
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(isinstance(type(ws.cell(row=2,column=buffer1).value),type(datetime)))+str(str(ws.cell(row=2,column=buffer1).value) is "今日" or "明日" or "明後日")),
+                    TextSendMessage(text=str(str(ws.cell(row=2,column=buffer1).value) == "今日" or "明日" or "明後日")),
                     )
                     ws_w.cell(row=2,column=flag,value=1)
+
 #Flag2 phase
 
         elif Flag==2:
