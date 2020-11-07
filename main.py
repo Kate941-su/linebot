@@ -109,34 +109,31 @@ def response_message(event):
                 TextSendMessage(text="予約したいときは”予約と入力してください”"),
             )
                 ws_w.cell(row=2,column=flag,value=0)
-    wb_w.save("sample1.xlsx")
 
-"""
         elif Flag==1:
             line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
-            ws_w.cell(row=issue_id,column=buffer1,value=event.message.text),
-            ws_w.cell(row=2,column=flag,value=2)
-
             )
+            ws_w.cell(row=2,column=flag,value=2)
+            ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
 
         elif Flag==2:
             line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="何の予定がありますか？"),
-            ws_w.cell(row=2,column=buffer2,value=event.message.text),
-            ws_w.cell(row=2,column=flag,value=3)
-
             )
-        
+            ws_w.cell(row=2,column=buffer2,value=event.message.text)
+
         elif Flag == 3:
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="予約を完了しました"),
-            ws_w.cell(row=2,column=buffer3,value=event.message.text),
-            ws_w.cell(row=2,column=flag,value=0)         
+            TextSendMessage(text="予約を完了しました"),        
            )
+            ws_w.cell(row=2,column=buffer3,value=event.message.text)
+            ws_w.cell(row=2,column=flag,value=0) 
+    
+    wb_w.save("sample1.xlsx")
 """
      
 
