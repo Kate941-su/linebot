@@ -121,11 +121,10 @@ def response_message(event):
             wb_w.save("sample1.xlsx")
             wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
-            is_message_date = str(ws.cell(row=2,column=buffer1).value)
             #型を判定する
             #datetime型で方が一致していた時
             if is_message_date != "今日" or "明日" or "明後日":   
-                if isinstance(is_message_date,datetime):
+                if isinstance(ws_w.cell(row=2,column=buffer1,value=is_message_date),datetime):
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
