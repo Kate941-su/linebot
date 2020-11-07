@@ -134,14 +134,14 @@ def response_message(event):
             ws_w.cell(row=2,column=flag,value=0) 
     
     wb_w.save("sample1.xlsx")
-"""
+
      
 
 
 
 #error時の対応
 
-
+#sample bot
 """
     profile = line_bot_api.get_profile(event.source.user_id)
 
