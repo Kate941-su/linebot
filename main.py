@@ -157,7 +157,7 @@ def response_message(event):
                 if bool(re.match(pattern,ws.cell(row=2,column=buffer1).value)):
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）\n"+str(isinstance(ws.cell(row=2,column=buffer1).value,datetime))),
+                    TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）\n"),
                     )
                     ws_w.cell(row=2,column=flag,value=2)
                     ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)  
