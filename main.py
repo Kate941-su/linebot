@@ -83,6 +83,8 @@ def response_message(event):
 #入力ミス防止    
     error_flag=0
     Flag=0#条件分岐のためのflag
+    pattern = r'[12]\d{3}[/\-年](0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
+
     issue_id=randint(0,1000)
     wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
@@ -149,9 +151,10 @@ def response_message(event):
                 ws_w.cell(row=2,column=flag,value=2)
                 ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
 
-                #間違っていた時
+                #今日明日明後日意外の処理
             else:
-                if type(ws.cell(row=2,column=buffer1).value) is datetime:
+                
+                if bool(re.match(pattern,ws.cell(row=2,column=buffer1).value)):
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）\n"+str(isinstance(ws.cell(row=2,column=buffer1).value,datetime))),

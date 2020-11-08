@@ -2,8 +2,6 @@ import re
 
 s = 'aaa@xxx.com'
 m = re.match(r'[a-z]+@[a-z]+\.[a-z]+', s)
-print(m)
-print(m.group())
 try:
     k=0
     r_message="25:11"
@@ -22,3 +20,5 @@ except:
     error_flag=1
 
 
+pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'
+print(bool(re.match(pattern,"11月8日")))

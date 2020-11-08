@@ -43,9 +43,11 @@ ws_w=wb_w.worksheets[0]
 
 #本来ならrow=issue_id
 ws_w.cell(row=2,column=yyyy).value=year
-
-
-
+ws_w.cell(row=5,column=buffer1,value="11月3日")
+wb.save("sample.xlsx")
+wb=px.load_workbook("sample.xlsx")#open xls file(wb=work book)
+ws = wb["plan"]#get sheet data(ws=work sheet)
+print(type(ws.cell(row=5,column=buffer1).value))
 #flag1 phase
 #today
 #確認
@@ -150,7 +152,7 @@ if ws.cell(row=4,column=buffer1).value == "明後日":
 
 
 
-if ws.cell(row=5,column=buffer1).value != "今日"or"明日"or"明後日":
+if ws.cell(row=5,column=buffer1).value is datetime:
     try:
         obj=ws.cell(row=5,column=buffer1).value
         obj_month=obj.month
