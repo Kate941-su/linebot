@@ -165,6 +165,7 @@ def response_message(event):
                     TextSendMessage(text=str(type(ws.cell(row=2,column=buffer1).value) is datetime))
                     ),
                     ws_w.cell(row=2,column=flag,value=1)
+                    ws_w.cell(row=2,column=mistake,value=Mistake+1)
 
 #Flag2 phase
 
