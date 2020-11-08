@@ -50,9 +50,9 @@ ws_w.cell(row=2,column=yyyy).value=year
 #today
 #確認
 #print(type(ws.cell(row=5,column=buffer1).value))
-print(ws.cell(row=2,column=buffer1).value)
-print(isinstance(ws.cell(row=5,column=buffer1).value,datetime))
-print(str(ws.cell(row=2,column=buffer1).value) == "今日" or "明日" or "明後日")
+#print(ws.cell(row=2,column=buffer1).value)
+print(isinstance(ws.cell(row=4,column=buffer1).value,datetime))
+print(str(ws.cell(row=2,column=buffer1).value) == "今日")
 if ws.cell(row=3,column=buffer1).value=="今日":
     ws_w.cell(row=3,column=MM,value=month)
     day=today
