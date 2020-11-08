@@ -134,7 +134,7 @@ def response_message(event):
                 ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
                 #間違っていた時
             else:
-                if isinstance(ws.cell(row=2,column=buffer1).value,datetime):
+                if type(ws.cell(row=2,column=buffer1).value) is datetime:
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）\n"+str(isinstance(ws.cell(row=2,column=buffer1).value,datetime))),
