@@ -132,6 +132,23 @@ def response_message(event):
                 )
                 ws_w.cell(row=2,column=flag,value=2)
                 ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+
+            elif str(ws.cell(row=2,column=buffer1).value) == "明日":   
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                )
+                ws_w.cell(row=2,column=flag,value=2)
+                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+
+            elif str(ws.cell(row=2,column=buffer1).value) == "明後日":   
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                )
+                ws_w.cell(row=2,column=flag,value=2)
+                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+
                 #間違っていた時
             else:
                 if type(ws.cell(row=2,column=buffer1).value) is datetime:
@@ -145,7 +162,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=ws.cell(row=2,column=buffer1).value+str(type(ws.cell(row=2,column=buffer1).value)))
+                    TextSendMessage(text=str(type(ws.cell(row=2,column=buffer1).value) is datetime))
                     ),
                     ws_w.cell(row=2,column=flag,value=1)
 
