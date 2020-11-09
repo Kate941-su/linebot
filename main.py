@@ -212,7 +212,7 @@ def response_message(event):
         elif Flag == 3:
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="予約を完了しました"+str(ws_w.cell(row=issue_id,column=buffer1,value=event.message.text))+str(ws_w.cell(row=2,column=buffer2,value=event.message.text))),        
+            TextSendMessage(text="予約を完了しました"),        
            )
             ws_w.cell(row=2,column=buffer3,value=event.message.text)
             ws_w.cell(row=2,column=flag,value=0) 
