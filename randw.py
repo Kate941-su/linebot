@@ -198,6 +198,10 @@ if datetime(ws.cell(row=5,column=yyyy).value,ws.cell(row=5,column=MM).value,ws.c
     wb_w.save("sample.xlsx")
 
 #openpyxlは配列１スタート
+
+ws.delete_rows(3)
+wb.save("sample.xlsx")
+
 """
 while True:
     issue_id=randint(2,20)

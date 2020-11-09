@@ -1,32 +1,20 @@
-from flask import Flask, request, abort
+from linebot import LineBotApi
+from linebot.models import TextSendMessage
 
-import os,re
-
-from linebot import LineBotApi, WebhookHandler
-
-from linebot.exceptions import  InvalidSignatureError
-
-from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageAction
-
-import datetime
-
-import openpyxl as px
-from random import randint
-from linebot.exceptions import LineBotApiError
-
-LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+# リモートリポジトリに"ご自身のチャネルのアクセストークン"をpushするのは、避けてください。
+# 理由は、そのアクセストークンがあれば、あなたになりすまして、プッシュ通知を送れてしまうからです。
+LINE_CHANNEL_ACCESS_TOKEN = "ご自身のチャネルのアクセストークン"
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-receiver = 'receiver id'
-def pushMessage(message):
-    try:
-        line_bot_api.push_message(receiver, TextSendMessage(text=message))
-        print("success")
-    except LineBotApiError as e:
-        print(e)
-pushMessage("Hello!")
-pushMessage("こんにちは")
-pushMessage("你好")
+
+def main():
+    user_id = "Uc638d641cd892715128053544ff83fae"
+
+    messages = TextSendMessage(text=f"こんにちは😁\n\n"
+                                    f"最近はいかがお過ごしでしょうか?")
+    line_bot_api.push_message(user_id, messages=messages)
+
+
+if __name__ == "__main__":
+    main()

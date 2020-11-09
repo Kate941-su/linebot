@@ -208,13 +208,13 @@ def response_message(event):
         elif Flag == 3:
             ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id
             ws_w.cell(row=2,column=flag,value=0)
-            ws_w.cell(row=2,column=send_id,value=profile.user_id[:])
+            ws_w.cell(row=2,column=send_id,value=profile.user_id)
             wb_w.save("sample1.xlsx")
             wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(profile.user_id[:])+str(ws.cell(row=2,column=send_id).value)),        
+            TextSendMessage(text=str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=2,column=send_id).value)),        
            )
 
 #            ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id
