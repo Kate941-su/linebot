@@ -214,7 +214,7 @@ def response_message(event):
             ws_w.cell(row=2,column=send_id,value=profile.user_id[:]) 
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(profile.user_id[:])),        
+            TextSendMessage(text=str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(profile.user_id[:])+str(ws.cell(row=2,column=send_id).value)),        
            )
 
 #            ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id
