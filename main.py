@@ -133,7 +133,7 @@ def response_message(event):
                 TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
-                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+                ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
 
             elif str(ws.cell(row=2,column=buffer1).value) == "明日":   
                 line_bot_api.reply_message(
@@ -141,7 +141,7 @@ def response_message(event):
                 TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
-                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+                ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
 
             elif str(ws.cell(row=2,column=buffer1).value) == "明後日":   
                 line_bot_api.reply_message(
@@ -149,7 +149,7 @@ def response_message(event):
                 TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
-                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+                ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
 
                 #今日明日明後日意外の処理
             else:
@@ -160,7 +160,7 @@ def response_message(event):
                     TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）\n"),
                     )
                     ws_w.cell(row=2,column=flag,value=2)
-                    ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)  
+                    ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
               
                 else:
                     line_bot_api.reply_message(
@@ -192,7 +192,7 @@ def response_message(event):
                 TextSendMessage(text="何の予定がありますか？\n"),
                 )
                 ws_w.cell(row=2,column=flag,value=3)
-                ws_w.cell(row=2,column=buffer2,value=event.message.text)
+                ws_w.cell(row=2,column=buffer2,value=event.message.text)#issue id
 
             else:
                 line_bot_api.reply_message(
@@ -200,16 +200,16 @@ def response_message(event):
                 TextSendMessage(text="入力ミスがあります。\n何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
-                ws_w.cell(row=issue_id,column=buffer1,value=event.message.text)
+ #               ws_w.cell(row=2,column=buffer1,value=event.message.text)
                 ws_w.cell(row=2,column=mistake,value=Mistake+1)
 #Flag3 phase
 
         elif Flag == 3:
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="予約を完了しました"),        
+            TextSendMessage(text="予約を完了しました\n"+str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。"),        
            )
-            ws_w.cell(row=2,column=buffer3,value=event.message.text)
+            ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id
             ws_w.cell(row=2,column=flag,value=0) 
     
     wb_w.save("sample1.xlsx")
