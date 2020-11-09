@@ -80,6 +80,7 @@ def response_message(event):
     buffer3=13
     error_catch=14
     mistake=15
+    send_id=16
 #入力ミス防止    
     error_flag=0
     Flag=0#条件分岐のためのflag
@@ -209,11 +210,13 @@ def response_message(event):
             ws_w.cell(row=2,column=flag,value=0)
             wb_w.save("sample1.xlsx")
             wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
-            ws = wb["plan"]#get sheet data(ws=work sheet) 
+            ws = wb["plan"]#get sheet data(ws=work sheet)
+            ws_w.cell(row=2,column=send_id,value=profile.user_id[:]) 
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="予約を完了しました\n"+str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(profile.user_id[:])),        
+            TextSendMessage(text=str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(profile.user_id[:])),        
            )
+
 #            ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id
 #            ws_w.cell(row=2,column=flag,value=0) 
     
