@@ -6,10 +6,7 @@ from linebot import LineBotApi, WebhookHandler
 
 from linebot.exceptions import  InvalidSignatureError
 
-from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate
-
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageAction
-
 
 import datetime
 
@@ -87,9 +84,8 @@ def response_message(event):
     error_flag=0
     Flag=0#条件分岐のためのflag
     pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
+
     issue_id=randint(0,1000)
-    #送信相手のLINEIDを取得
-    profile = line_bot_api.get_profile(event.source.user_id)
     wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
     wb_w=px.load_workbook("sample1.xlsx")
@@ -193,7 +189,7 @@ def response_message(event):
             if error_flag == 0:    
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="何の予定がありますか？\n"+str(type(event.message.text))),
+                TextSendMessage(text="何の予定がありますか？\n"),
                 )
                 ws_w.cell(row=2,column=flag,value=3)
                 ws_w.cell(row=2,column=buffer2,value=event.message.text)
@@ -215,7 +211,7 @@ def response_message(event):
            )
             ws_w.cell(row=2,column=buffer3,value=event.message.text)
             ws_w.cell(row=2,column=flag,value=0) 
-    #finary
+    
     wb_w.save("sample1.xlsx")
 
      
