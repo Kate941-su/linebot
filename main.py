@@ -84,7 +84,7 @@ def response_message(event):
     error_flag=0
     Flag=0#条件分岐のためのflag
     pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
-
+    profile = line_bot_api.get_profile(event.source.user_id)
     issue_id=randint(0,1000)
     wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
@@ -212,7 +212,7 @@ def response_message(event):
             ws = wb["plan"]#get sheet data(ws=work sheet) 
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="予約を完了しました\n"+str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。"),        
+            TextSendMessage(text="予約を完了しました\n"+str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(profile.user_id[:])),        
            )
 #            ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id
 #            ws_w.cell(row=2,column=flag,value=0) 
