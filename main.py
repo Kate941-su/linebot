@@ -6,11 +6,10 @@ from linebot import LineBotApi, WebhookHandler
 
 from linebot.exceptions import  InvalidSignatureError
 
-<<<<<<< HEAD
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate
-=======
+
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageAction
->>>>>>> 2cba25b63725145ff14dbbc47c6c40524fff5d90
+
 
 import datetime
 
