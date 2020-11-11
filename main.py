@@ -106,8 +106,8 @@ def response_message(event):
         wb_w.save("user"+str(User_id)+"xlsx")
         wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
-        Flag=int(ws.cell(row=b_row,column=flag).value)
-        Mistake=int(ws.cell(row=b_row,column=mistake).value)
+ #       Flag=int(ws.cell(row=b_row,column=flag).value)
+ #       Mistake=int(ws.cell(row=b_row,column=mistake).value)
 
         if int(ws.cell(row=b_row,column=mistake).value)==2:
             line_bot_api.reply_message(
