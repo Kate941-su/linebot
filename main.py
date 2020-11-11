@@ -98,13 +98,12 @@ def response_message(event):
     if os.path.exists("./user"+str(User_id)+".xlsx"):
         wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
-        wb.save("./user"+str(User_id)+".xlsx")
         wb_w=px.load_workbook("./user"+str(User_id)+".xlsx")
         ws_w=wb_w.worksheets[0]
         ws_w.cell(row=b_row,column=flag,value=0)
         ws_w.cell(row=b_row,column=mistake,value=0)
         ws_w.cell(row=b_row,column=send_id,value=User_id)
-        wb_w.save("user"+str(User_id)+"xlsx")
+        wb_w.save("./user"+str(User_id)+".xlsx")
         wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
         Flag=int(ws.cell(row=b_row,column=flag).value)
