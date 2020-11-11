@@ -96,10 +96,10 @@ def response_message(event):
 
 #fileの有無　あればそれを
 # 開くなければつくってそれを開く
-    if os.path.exists("./user"+str(User_id)+".xlsx"):
-        wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+    if os.path.exists("user"+str(User_id)+".xlsx"):
+        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
-        wb_w=px.load_workbook("./user"+str(User_id)+".xlsx")
+        wb_w=px.load_workbook("user"+str(User_id)+".xlsx")
         ws_w=wb_w.worksheets[0]
         Flag=int(ws.cell(row=b_row,column=flag).value)
         Mistake=int(ws.cell(row=b_row,column=mistake).value)
@@ -108,9 +108,9 @@ def response_message(event):
         ws=wb.active
         ws.title="plan"
         wb.save("user"+str(User_id)+"xlsx")
-        wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
-        wb_w=px.load_workbook("./user"+str(User_id)+".xlsx")
+        wb_w=px.load_workbook("user"+str(User_id)+".xlsx")
         ws_w=wb_w.worksheets[0]
         ws_w.cell(row=b_row,column=flag,value=0)
         ws_w.cell(row=b_row,column=mistake,value=0)
@@ -150,8 +150,8 @@ def response_message(event):
 
             is_message_date = event.message.text
             ws_w.cell(row=b_row,column=buffer1,value=is_message_date)
-            wb_w.save("./user"+str(User_id)+".xlsx")
-            wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+            wb_w.save("user"+str(User_id)+".xlsx")
+            wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
             #型を判定する
             #datetime型で方が一致していた時
@@ -236,8 +236,8 @@ def response_message(event):
             ws_w.cell(row=b_row,column=buffer3,value=event.message.text)#issue id
             ws_w.cell(row=b_row,column=flag,value=0)
             ws_w.cell(row=b_row,column=send_id,value=profile.user_id)
-            wb_w.save("./user"+str(User_id)+".xlsx")
-            wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+            wb_w.save("user"+str(User_id)+".xlsx")
+            wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
             line_bot_api.reply_message(
             event.reply_token,
@@ -247,7 +247,7 @@ def response_message(event):
 #            ws_w.cell(row=b_row,column=buffer3,value=event.message.text)#issue id
 #            ws_w.cell(row=b_row,column=flag,value=0) 
     
-    wb_w.save("./user"+str(User_id)+".xlsx")
+    wb_w.save("user"+str(User_id)+".xlsx")
 
      
 
