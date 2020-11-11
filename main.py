@@ -85,7 +85,7 @@ def response_message(event):
     bffer_id=17
 
 #buffering_row
-    b_row=193
+    b_row=201
 
 #入力ミス防止    
     error_flag=0
@@ -100,22 +100,20 @@ def response_message(event):
         ws = wb["plan"]#get sheet data(ws=work sheet)
         wb_w=px.load_workbook("./user"+str(User_id)+".xlsx")
         ws_w=wb_w.worksheets[0]
-        ws_w.cell(row=b_row,column=flag,value=0)
-        ws_w.cell(row=b_row,column=mistake,value=0)
         ws_w.cell(row=b_row,column=send_id,value=User_id)
         wb_w.save("./user"+str(User_id)+".xlsx")
         wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
         Flag=int(ws.cell(row=b_row,column=flag).value)
         Mistake=int(ws.cell(row=b_row,column=mistake).value)
-        if Flag>0:    
-            if int(ws.cell(row=b_row,column=mistake).value)==2:
-                line_bot_api.reply_message(
-                    event.reply_token,
-                    TextSendMessage(text="try again at first!!"),
-                )
-                ws_w.cell(row=b_row,column=mistake,value=0)
-                ws_w.cell(row=b_row,column=flag,value=0)
+  
+        if int(ws.cell(row=b_row,column=mistake).value)==2:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="try again at first!!"),
+            )
+            ws_w.cell(row=b_row,column=mistake,value=0)
+            ws_w.cell(row=b_row,column=flag,value=0)
     
     #Flag1 phase
 
