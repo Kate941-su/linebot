@@ -1,7 +1,7 @@
 import os
 import openpyxl as px
 
-event="fjaoihgfo35345t4gvasdfg"
+event="Uc638d641cd892715128053544ff83fae"
 User_id=102
 def make_or_open_file(EVENT):
     if os.path.isfile("./user"+str(EVENT)+".xlsx"):
