@@ -109,7 +109,7 @@ def response_message(event):
             if event.message.text == "予約":
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11月6日"),               
+                TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11月6日\n※予約時刻は10分単位で行います1分単位で予約すると10分繰り上げ通知となります"),               
             )
                 ws_w.cell(row=2,column=flag,value=1)
             else:
@@ -131,7 +131,7 @@ def response_message(event):
             if str(ws.cell(row=2,column=buffer1).value) == "今日":   
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時00分のとき):11:00（半角）\n※10分単位です"),
+                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時00分のとき):11:00（半角）\n※10分単位です!"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
                 ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
@@ -139,7 +139,7 @@ def response_message(event):
             elif str(ws.cell(row=2,column=buffer1).value) == "明日":   
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
                 ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
@@ -147,7 +147,7 @@ def response_message(event):
             elif str(ws.cell(row=2,column=buffer1).value) == "明後日":   
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
                 ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
@@ -158,7 +158,7 @@ def response_message(event):
                 if bool(re.match(pattern,ws.cell(row=2,column=buffer1).value)):
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）\n"),
+                    TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）\n"),
                     )
                     ws_w.cell(row=2,column=flag,value=2)
                     ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
@@ -198,7 +198,7 @@ def response_message(event):
             else:
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="入力ミスがあります。\n何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                TextSendMessage(text="入力ミスがあります。\n何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
  #               ws_w.cell(row=2,column=buffer1,value=event.message.text)
