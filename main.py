@@ -96,36 +96,26 @@ def response_message(event):
 
 #fileの有無　あればそれを
 # 開くなければつくってそれを開く
+
     if os.path.exists("user"+str(User_id)+".xlsx"):
-        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
-        ws = wb["plan"]#get sheet data(ws=work sheet)
-        wb_w=px.load_workbook("user"+str(User_id)+".xlsx")
-        ws_w=wb_w.worksheets[0]
-        ws_w.cell(row=b_row,column=flag,value=0)
-        ws_w.cell(row=b_row,column=mistake,value=0)
-        ws_w.cell(row=b_row,column=send_id,value=User_id)
-        wb_w.save("user"+str(User_id)+"xlsx")
-        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
-        ws = wb["plan"]#get sheet data(ws=work sheet)
-        Flag=int(ws.cell(row=b_row,column=flag).value)
-        Mistake=int(ws.cell(row=b_row,column=mistake).value)
+        pass
     else:
-        wb=px.Workbook()
-        ws=wb.active
-        ws.title="plan"
-        wb.save("user"+str(User_id)+"xlsx")
-        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
-        ws = wb["plan"]#get sheet data(ws=work sheet)
-        wb_w=px.load_workbook("user"+str(User_id)+".xlsx")
-        ws_w=wb_w.worksheets[0]
-        ws_w.cell(row=b_row,column=flag,value=0)
-        ws_w.cell(row=b_row,column=mistake,value=0)
-        ws_w.cell(row=b_row,column=send_id,value=User_id)
-        wb_w.save("user"+str(User_id)+"xlsx")
-        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
-        ws = wb["plan"]#get sheet data(ws=work sheet)
-        Flag=int(ws.cell(row=b_row,column=flag).value)
-        Mistake=int(ws.cell(row=b_row,column=mistake).value)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="登録までお待ちください"),
+        ) 
+    wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+    ws = wb["plan"]#get sheet data(ws=work sheet)
+    wb_w=px.load_workbook("user"+str(User_id)+".xlsx")
+    ws_w=wb_w.worksheets[0]
+    ws_w.cell(row=b_row,column=flag,value=0)
+    ws_w.cell(row=b_row,column=mistake,value=0)
+    ws_w.cell(row=b_row,column=send_id,value=User_id)
+    wb_w.save("user"+str(User_id)+"xlsx")
+    wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+    ws = wb["plan"]#get sheet data(ws=work sheet)
+    Flag=int(ws.cell(row=b_row,column=flag).value)
+    Mistake=int(ws.cell(row=b_row,column=mistake).value)
 
 
 
