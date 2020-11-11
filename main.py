@@ -86,7 +86,6 @@ def response_message(event):
     Flag=0#条件分岐のためのflag
     pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
     profile = line_bot_api.get_profile(event.source.user_id)
-    issue_id=randint(0,1000)
     wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
     wb_w=px.load_workbook("sample1.xlsx")
@@ -206,6 +205,7 @@ def response_message(event):
 #Flag3 phase
 
         elif Flag == 3:
+            issue_id=randint(2,100)
             ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id
             ws_w.cell(row=2,column=flag,value=0)
             ws_w.cell(row=2,column=send_id,value=profile.user_id)
@@ -214,7 +214,7 @@ def response_message(event):
             ws = wb["plan"]#get sheet data(ws=work sheet)
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=2,column=send_id).value)),        
+            TextSendMessage(text=str(ws.cell(row=2,column=buffer1).value)+str(ws.cell(row=2,column=buffer2).value)+"に"+str(ws.cell(row=2,column=buffer3).value)+"で予約しました。\n"+str(issue_id)),        
            )
 
 #            ws_w.cell(row=2,column=buffer3,value=event.message.text)#issue id

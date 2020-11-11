@@ -18,6 +18,8 @@ minute=datetime.now().minute
 
 list30=[4,6,9,11]
 list31=[1,3,5,7,8,10,12]
+#Max_issue_id
+max_issue_id=100
 
 plan=1
 yyyy=2
@@ -120,51 +122,51 @@ if ws.cell(row=2,column=buffer1).value == "明日":
         ws_w.cell(row=2,column=yyyy,value=year+1)
 
 #day after tomorrow
-if ws.cell(row=4,column=buffer1).value == "明後日":
-    ws_w.cell(row=4,column=MM,value=11)#month
+if ws.cell(row=2,column=buffer1).value == "明後日":
+    ws_w.cell(row=2,column=MM,value=11)#month
     day=29#today
     print(day)
-    ws_w.cell(row=4,column=dd,value=day+2)
+    ws_w.cell(row=2,column=dd,value=day+2)
     #save and reopen
     wb_w.save("sample.xlsx")
     wb=px.load_workbook("sample.xlsx")#reopen xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
-    day=int(ws.cell(row=4,column=dd).value)
+    day=int(ws.cell(row=2,column=dd).value)
     print(day)
     wb_w.save("sample.xlsx")
 
     #月繰り上げ処理
-    if int(ws.cell(row=4,column=MM).value) in list30:
+    if int(ws.cell(row=2,column=MM).value) in list30:
         if day>29:
             print("hello")
-            ws_w.cell(row=4,column=dd,value=day-30)
-            Month=ws.cell(row=4,column=MM).value
-            ws_w.cell(row=4,column=MM,value=Month+1)
+            ws_w.cell(row=2,column=dd,value=day-30)
+            Month=ws.cell(row=2,column=MM).value
+            ws_w.cell(row=2,column=MM,value=Month+1)
     
-    elif int(ws.cell(row=4,column=MM).value) in list31:
+    elif int(ws.cell(row=2,column=MM).value) in list31:
         if day>30:
             print("world")
-            ws_w.cell(row=4,column=dd,value=day-31)
-            Month=ws.cell(row=4,column=MM).value
-            ws_w.cell(row=4,column=MM,value=Month+1)
+            ws_w.cell(row=2,column=dd,value=day-31)
+            Month=ws.cell(row=2,column=MM).value
+            ws_w.cell(row=2,column=MM,value=Month+1)
     #2月の処理
     else:
         if day>27:
             print("japan")
-            ws_w.cell(row=4,column=dd,value=day-28)
-            Month=ws.cell(row=4,column=MM).value
-            ws_w.cell(row=4,column=MM,value=Month+1)
+            ws_w.cell(row=2,column=dd,value=day-28)
+            Month=ws.cell(row=2,column=MM).value
+            ws_w.cell(row=2,column=MM,value=Month+1)
     wb_w.save("sample.xlsx")
 
 
 
-if ws.cell(row=5,column=buffer1).value is datetime:
+if ws.cell(row=2,column=buffer1).value is datetime:
     try:
-        obj=ws.cell(row=5,column=buffer1).value
+        obj=ws.cell(row=2,column=buffer1).value
         obj_month=obj.month
         obj_day=obj.day
-        ws_w.cell(row=5,column=MM,value=obj_month)
-        ws_w.cell(row=5,column=dd,value=obj_day)
+        ws_w.cell(row=2,column=MM,value=obj_month)
+        ws_w.cell(row=2,column=dd,value=obj_day)
         wb_w.save("sample.xlsx")
     except:
         print("error occured!!\nphase1")
@@ -175,17 +177,17 @@ if ws.cell(row=5,column=buffer1).value is datetime:
 
 #flag2 phase
 try :
-    obj=ws.cell(row=4,column=buffer2).value
+    obj=ws.cell(row=2,column=buffer2).value
     obj_hour=obj.hour
     obj_min=obj.minute
-    ws_w.cell(row=4,column=hh,value=obj_hour)
-    ws_w.cell(row=4,column=mm,value=obj_min)
+    ws_w.cell(row=2,column=hh,value=obj_hour)
+    ws_w.cell(row=2,column=mm,value=obj_min)
     wb_w.save("sample.xlsx")
     #save and reopen
     wb=px.load_workbook("sample.xlsx")#reopen xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
     #上の二行でリロードしてからtestを行う
-    test=int(ws.cell(row=4,column=mm).value)
+    test=int(ws.cell(row=2,column=mm).value)
 
 #エラー発生時の振り出しに戻す対応
 except:
@@ -198,7 +200,7 @@ Plan=ws_w.cell(row=2,column=buffer3).value
 ws_w.cell(row=2,column=plan,value=Plan)
 wb_w.save("sample.xlsx") 
 
-if datetime(ws.cell(row=4,column=yyyy).value,ws.cell(row=4,column=MM).value,ws.cell(row=4,column=dd).value,ws.cell(row=4,column=hh).value,ws.cell(row=4,column=mm).value) < datetime.now():
+if datetime(ws.cell(row=2,column=yyyy).value,ws.cell(row=2,column=MM).value,ws.cell(row=4,column=dd).value,ws.cell(row=4,column=hh).value,ws.cell(row=4,column=mm).value) < datetime.now():
     print("hello")
 #    ws_w.cell(row=5,column=yyyy,value=year+1)
     wb_w.save("sample.xlsx")
@@ -239,3 +241,9 @@ if (type(ws.cell(row=3,column=buffer1).value) is datetime):
 else:
     message = TextSendMessage(text=str(ws.cell(row=3,column=buffer1).value)+"の"+str(ws.cell(row=3,column=buffer2).value)+"に"+str(ws.cell(row=3,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=3,column=send_id).value))
     line_bot_api.push_message(user_id,message)
+
+for i in range(2,max_issue_id+1):
+    is_issueid = ws.cell(row=i,column=issue_id_col).value
+    if is_issueid != None:
+        if datetime(ws.cell(row=i,column=yyyy).value,ws.cell(row=i,column=MM).value,ws.cell(row=i,column=dd).value,ws.cell(row=i,column=hh).value,ws.cell(row=i,column=mm).value) < datetime.now():
+            print("hello world")
