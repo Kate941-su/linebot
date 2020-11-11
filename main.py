@@ -107,7 +107,7 @@ def response_message(event):
         wb=px.Workbook()
         ws=wb.active
         ws.title="plan"
-        wb.save("file"+str(User_id)+"xlsx")
+        wb.save("user"+str(User_id)+"xlsx")
         wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
         wb_w=px.load_workbook("./user"+str(User_id)+".xlsx")
@@ -115,7 +115,7 @@ def response_message(event):
         ws_w.cell(row=b_row,column=flag,value=0)
         ws_w.cell(row=b_row,column=mistake,value=0)
         ws_w.cell(row=b_row,column=send_id,value=User_id)
-        wb_w.save("file"+str(User_id)+"xlsx")
+        wb_w.save("user"+str(User_id)+"xlsx")
         Flag=int(ws.cell(row=b_row,column=flag).value)
         Mistake=int(ws.cell(row=b_row,column=mistake).value)
 
@@ -150,8 +150,8 @@ def response_message(event):
 
             is_message_date = event.message.text
             ws_w.cell(row=b_row,column=buffer1,value=is_message_date)
-            wb_w.save("sample1.xlsx")
-            wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
+            wb_w.save("./user"+str(User_id)+".xlsx")
+            wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
             #型を判定する
             #datetime型で方が一致していた時
@@ -236,8 +236,8 @@ def response_message(event):
             ws_w.cell(row=b_row,column=buffer3,value=event.message.text)#issue id
             ws_w.cell(row=b_row,column=flag,value=0)
             ws_w.cell(row=b_row,column=send_id,value=profile.user_id)
-            wb_w.save("sample1.xlsx")
-            wb=px.load_workbook("sample1.xlsx")#open xls file(wb=work book)
+            wb_w.save("./user"+str(User_id)+".xlsx")
+            wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
             ws = wb["plan"]#get sheet data(ws=work sheet)
             line_bot_api.reply_message(
             event.reply_token,
