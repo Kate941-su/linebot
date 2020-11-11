@@ -104,6 +104,9 @@ def response_message(event):
             event.reply_token,
             TextSendMessage(text="登録までお待ちください"),
         ) 
+        user_id = os.environ["USER_ID"]
+        line_bot_api.push_message(user_id, TextSendMessage(text=user_id))
+
     wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
     wb_w=px.load_workbook("user"+str(User_id)+".xlsx")
