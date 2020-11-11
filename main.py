@@ -95,10 +95,10 @@ def response_message(event):
     User_id=profile.user_id
 
 #fileの有無　あればそれを開くなければつくってそれを開く
-    if os.path.exists("user"+str(User_id)+".xlsx"):
-        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+    if os.path.exists("./user"+str(User_id)+".xlsx"):
+        wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
         ws = wb["plan"]#get sheet data(ws=work sheet)
-        wb_w=px.load_workbook("user"+str(User_id)+".xlsx")
+        wb_w=px.load_workbook("./user"+str(User_id)+".xlsx")
         ws_w=wb_w.worksheets[0]
         ws_w.cell(row=b_row,column=flag,value=0)
         ws_w.cell(row=b_row,column=mistake,value=0)
