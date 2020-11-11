@@ -1,9 +1,13 @@
-import xlrd,xlwt
 import openpyxl as px
 import pprint
 from random import randint
 import re
 from datetime import date,datetime,timedelta
+
+from linebot import LineBotApi
+from linebot.models import TextSendMessage
+from linebot.exceptions import LineBotApiError
+import os
 
 #today's infomation
 year=datetime.now().year
@@ -27,6 +31,8 @@ buffer1=11
 buffer2=12
 buffer3=13
 error_catch=14
+mistake=15
+send_id=16
 wb=px.load_workbook("sample.xlsx")#open xls file(wb=work book)
 ws = wb["plan"]#get sheet data(ws=work sheet)
 col_end=ws.max_column
@@ -53,8 +59,8 @@ print(type(ws.cell(row=5,column=buffer1).value))
 #確認
 #print(type(ws.cell(row=5,column=buffer1).value))
 #print(ws.cell(row=2,column=buffer1).value)
-print(type(ws.cell(row=5,column=buffer1).value) is datetime)
-print(str(ws.cell(row=2,column=buffer1).value) == "今日")
+print(type(ws.cell(row=4,column=buffer1).value) is datetime)
+#print(str(ws.cell(row=2,column=buffer1).value) == "今日")
 if ws.cell(row=3,column=buffer1).value=="今日":
     ws_w.cell(row=3,column=MM,value=month)
     day=today
@@ -169,17 +175,17 @@ if ws.cell(row=5,column=buffer1).value is datetime:
 
 #flag2 phase
 try :
-    obj=ws.cell(row=5,column=buffer2).value
+    obj=ws.cell(row=4,column=buffer2).value
     obj_hour=obj.hour
     obj_min=obj.minute
-    ws_w.cell(row=5,column=hh,value=obj_hour)
-    ws_w.cell(row=5,column=mm,value=obj_min)
+    ws_w.cell(row=4,column=hh,value=obj_hour)
+    ws_w.cell(row=4,column=mm,value=obj_min)
     wb_w.save("sample.xlsx")
     #save and reopen
     wb=px.load_workbook("sample.xlsx")#reopen xls file(wb=work book)
     ws = wb["plan"]#get sheet data(ws=work sheet)
     #上の二行でリロードしてからtestを行う
-    test=int(ws.cell(row=5,column=mm).value)
+    test=int(ws.cell(row=4,column=mm).value)
 
 #エラー発生時の振り出しに戻す対応
 except:
@@ -192,15 +198,15 @@ Plan=ws_w.cell(row=2,column=buffer3).value
 ws_w.cell(row=2,column=plan,value=Plan)
 wb_w.save("sample.xlsx") 
 
-if datetime(ws.cell(row=5,column=yyyy).value,ws.cell(row=5,column=MM).value,ws.cell(row=5,column=dd).value,ws.cell(row=5,column=hh).value,ws.cell(row=5,column=mm).value) < datetime.now():
+if datetime(ws.cell(row=4,column=yyyy).value,ws.cell(row=4,column=MM).value,ws.cell(row=4,column=dd).value,ws.cell(row=4,column=hh).value,ws.cell(row=4,column=mm).value) < datetime.now():
     print("hello")
-    ws_w.cell(row=5,column=yyyy,value=year+1)
+#    ws_w.cell(row=5,column=yyyy,value=year+1)
     wb_w.save("sample.xlsx")
 
 #openpyxlは配列１スタート
 
-ws.delete_rows(3)
-wb.save("sample.xlsx")
+#ws.delete_rows(3)
+#wb.save("sample.xlsx")
 
 """
 while True:
@@ -220,3 +226,16 @@ ws_w.cell(row=issue_id,column=1,value=buffer[4])
 flag=ws.cell(row=2,column=10).value
 ws_w.cell(row=2,column=10,value=flag+1)
 """
+
+LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+
+#print(ws.cell(row=2,column=buffer1).value.month)
+user_id = ws.cell(row=3,column=send_id).value
+if (type(ws.cell(row=3,column=buffer1).value) is datetime):
+    message = TextSendMessage(text=str(ws.cell(row=3,column=buffer1).value.month)+"月"+str(ws.cell(row=3,column=buffer1).value.day)+"日"+"に"+str(ws.cell(row=3,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=3,column=send_id).value))
+    line_bot_api.push_message(user_id,message)
+else:
+    message = TextSendMessage(text=str(ws.cell(row=3,column=buffer1).value)+"の"+str(ws.cell(row=3,column=buffer2).value)+"に"+str(ws.cell(row=3,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=3,column=send_id).value))
+    line_bot_api.push_message(user_id,message)

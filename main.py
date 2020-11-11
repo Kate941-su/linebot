@@ -131,7 +131,7 @@ def response_message(event):
             if str(ws.cell(row=2,column=buffer1).value) == "今日":   
                 line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時11分のとき):11:11（半角）"),
+                TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時00分のとき):11:00（半角）\n※10分単位です"),
                 )
                 ws_w.cell(row=2,column=flag,value=2)
                 ws_w.cell(row=2,column=buffer1,value=event.message.text)#issue id
