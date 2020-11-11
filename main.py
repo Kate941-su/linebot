@@ -8,7 +8,7 @@ from linebot.exceptions import  InvalidSignatureError
 
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageAction
 
-import datetime
+from datetime import datetime
 
 import openpyxl as px
 from random import randint
@@ -108,8 +108,6 @@ def response_message(event):
         ws = wb["plan"]#get sheet data(ws=work sheet)
         Flag=int(ws.cell(row=b_row,column=flag).value)
         Mistake=int(ws.cell(row=b_row,column=mistake).value)
-
-
 
         if int(ws.cell(row=b_row,column=mistake).value)==2:
             line_bot_api.reply_message(
@@ -245,7 +243,7 @@ def response_message(event):
             TextSendMessage(text="登録までお待ちください"),
         ) 
         user_id = os.environ["MY_ID"]
-        line_bot_api.push_message(user_id, TextSendMessage(text=user_id)
+        line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+str(user_id)+"さんが登録を要請しました。\nファイルの作成をしてください。")
         )
 
 
