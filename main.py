@@ -108,7 +108,7 @@ def response_message(event):
         ws = wb["plan"]#get sheet data(ws=work sheet)
  #       Flag=int(ws.cell(row=b_row,column=flag).value)
  #       Mistake=int(ws.cell(row=b_row,column=mistake).value)
-
+    if Flag>0:    
         if int(ws.cell(row=b_row,column=mistake).value)==2:
             line_bot_api.reply_message(
                 event.reply_token,
@@ -116,7 +116,7 @@ def response_message(event):
             )
             ws_w.cell(row=b_row,column=mistake,value=0)
             ws_w.cell(row=b_row,column=flag,value=0)
-
+    
     #Flag1 phase
 
         else:
