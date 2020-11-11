@@ -21,5 +21,5 @@ def make_or_open_file(EVENT):
         ws_w.cell(row=2,column=11,value=User_id)
         wb_w.save("./user"+str(EVENT)+".xlsx")
 if __name__ ==  "__main__":
-    make_or_open_file(User_id)
+    make_or_open_file(event)
     
