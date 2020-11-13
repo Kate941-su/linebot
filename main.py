@@ -227,10 +227,10 @@ def response_message(event):
                 ws = wb["plan"]#get sheet data(ws=work sheet)
 
                 k=0
+                step1=0
+                step2=0
                 while k<=200:
                     k+=1
-                    step1=0
-                    step2=0
                     issue_id=randint(2,200)
                     if ws.cell(row=issue_id,column=issue_id_col) == None:
                         ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
@@ -252,7 +252,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(type(ws.cell(row=b_row,column=buffer1).value))),        
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)))),        
             )
 
 
