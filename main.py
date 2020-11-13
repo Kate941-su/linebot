@@ -229,23 +229,22 @@ def response_message(event):
                 k=0
                 step1=0
                 step2=0
-                while k<=200:
-                    k+=1
-                    issue_id=randint(2,200)
-                    if ws.cell(row=issue_id,column=issue_id_col) == None:
-                        ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
-                        ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
-                        ws_w.cell(row=issue_id,column=buffer2,value=ws.cell(row=b_row,column=buffer2).value)
-                        wb_w.save("user"+str(User_id)+".xlsx")
-                        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
-                        ws = wb["plan"]#get sheet data(ws=work sheet)
-                        if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
-                            step1=1
-                            if datetime.now()>datetime(year=this_year,month=ws.cell(row=b_row,column=buffer1).value.month,day=ws.cell(row=b_row,column=buffer1).value.day):
-                                ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
-                                step2=1
-                        break
-               
+
+                k+=1
+                issue_id=20#randint(2,200)
+
+                ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
+                ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
+                ws_w.cell(row=issue_id,column=buffer2,value=ws.cell(row=b_row,column=buffer2).value)
+                wb_w.save("user"+str(User_id)+".xlsx")
+                wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+                ws = wb["plan"]#get sheet data(ws=work sheet)
+                if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
+                    step1=1
+                    if datetime.now()>datetime(year=this_year,month=ws.cell(row=b_row,column=buffer1).value.month,day=ws.cell(row=b_row,column=buffer1).value.day):
+                        ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+                        step2=1
+
                 if k == 200:
                     line_bot_api.reply_message(
                     event.reply_token,
