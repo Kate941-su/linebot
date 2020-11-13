@@ -93,7 +93,7 @@ def response_message(event):
     pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
     profile = line_bot_api.get_profile(event.source.user_id)
     User_id=profile.user_id
-
+    this_year=2020
 #fileの有無　あればそれを開くなければつくってそれを開く
     if os.path.exists("./user"+str(User_id)+".xlsx"):
         wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
@@ -225,10 +225,34 @@ def response_message(event):
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
-                line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"),        
+
+                k=0
+                while k<=200:
+                    k+=1
+                    issue_id=randint(2,200)
+                    if ws.cell(row=issue_id,column=issue_id_col) == None:
+                        ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
+                        ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
+                        ws_w.cell(row=issue_id,column=buffer2,value=ws.cell(row=b_row,column=buffer2).value)
+                        if type(ws.cell(row=b_row,column=buffer1).value) != type("helloworld"):
+                            if datetime.now()>datetime(year=this_year,month=ws.cell(row=b_row,column=buffer1).value.month,day=ws.cell(row=b_row,column=buffer1).value.day):
+                                ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+                        break
+               
+                if k == 200:
+                    line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="予約件数は200までです。"),        
+                    )
+                    
+                else:
+                    line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"),        
             )
+
+
+
 
     #            ws_w.cell(row=b_row,column=buffer3,value=event.message.text)#issue id
     #            ws_w.cell(row=b_row,column=flag,value=0) 
@@ -243,8 +267,8 @@ def response_message(event):
         user_id = os.environ["MY_ID"]
         line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+str(user_id)+"さんが登録を要請しました。\nファイルの作成をしてください。\nファイル名"+str(user_id)+".xlsx")
         )
-        while True:
-            issue_id=randint(2,200)
+
+
 
 #error時の対応
 
