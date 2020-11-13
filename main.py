@@ -236,7 +236,7 @@ def response_message(event):
                         ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                         ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
                         ws_w.cell(row=issue_id,column=buffer2,value=ws.cell(row=b_row,column=buffer2).value)
-                        if type(ws.cell(row=b_row,column=buffer1).value) != type("helloworld"):
+                        if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
                             step1=1
                             if datetime.now()>datetime(year=this_year,month=ws.cell(row=b_row,column=buffer1).value.month,day=ws.cell(row=b_row,column=buffer1).value.day):
                                 ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
