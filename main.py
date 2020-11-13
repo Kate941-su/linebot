@@ -245,13 +245,14 @@ def response_message(event):
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
-                if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
-                    step1=1
- """
-                    if datetime.now()>datetime(year=this_year,month=ws.cell(row=issue_id,column=true_date).value.month,day=ws.cell(row=issue_id,column=true_date).value.day):
-                        ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
-                        step2=1
-"""
+ 
+
+#                if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
+#                    step1=1
+
+#                    if datetime.now()>datetime(year=this_year,month=ws.cell(row=issue_id,column=true_date).value.month,day=ws.cell(row=issue_id,column=true_date).value.day):
+#                        ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+#                        step2=1
                 if k == 200:
                     line_bot_api.reply_message(
                     event.reply_token,
