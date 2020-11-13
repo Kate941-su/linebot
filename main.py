@@ -247,10 +247,11 @@ def response_message(event):
                 ws = wb["plan"]#get sheet data(ws=work sheet)
                 if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
                     step1=1
+ """
                     if datetime.now()>datetime(year=this_year,month=ws.cell(row=issue_id,column=true_date).value.month,day=ws.cell(row=issue_id,column=true_date).value.day):
                         ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
                         step2=1
-
+"""
                 if k == 200:
                     line_bot_api.reply_message(
                     event.reply_token,
@@ -260,7 +261,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)))+str(ws.cell(row=issue_id,column=buffer1).value)),        
+                    TextSendMessage(text=str(ws.cell(row=issue_id,column=true_date).value)+str(ws.cell(row=issue_id,column=true_time).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)))+str(ws.cell(row=issue_id,column=buffer1).value)),        
             )
 
 
