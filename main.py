@@ -238,10 +238,10 @@ def response_message(event):
 
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                 if ws.cell(row=issue_id,column=buffer_date).value != None:
-                    ws_w.cell(row=issue_id,column=true_date,value="=DATEVALUE(R"+str(issue_id)+")")
+                    ws_w.cell(row=issue_id,column=true_date,value='=DATEVALUE(R'+str(issue_id)+')')
                 else:
                     ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
-                ws_w.cell(row=issue_id,column=true_time,value="=TIMEVALUE(L"+str(issue_id)+")")
+                ws_w.cell(row=issue_id,column=true_time,value='=TIMEVALUE(L'+str(issue_id)+')')
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
