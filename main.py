@@ -237,7 +237,7 @@ def response_message(event):
                 issue_id=20#randint(2,200)
 
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
-                if ws.cell(row=issue_id,column=buffer_date).value != None:
+                if ws.cell(row=b_row,column=buffer_date).value != None:
                     ws_w.cell(row=issue_id,column=true_date,value='=DATEVALUE(R'+str(issue_id)+')')
                 else:
                     ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
