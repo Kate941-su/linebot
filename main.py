@@ -252,7 +252,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)),        
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(type(ws.cell(row=b_row,column=buffer1).value))),        
             )
 
 
