@@ -229,16 +229,18 @@ def response_message(event):
                 k=0
                 while k<=200:
                     k+=1
-                    jk="hello"
+                    step1=0
+                    step2=0
                     issue_id=randint(2,200)
                     if ws.cell(row=issue_id,column=issue_id_col) == None:
                         ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                         ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
                         ws_w.cell(row=issue_id,column=buffer2,value=ws.cell(row=b_row,column=buffer2).value)
                         if type(ws.cell(row=b_row,column=buffer1).value) != type("helloworld"):
+                            step1=1
                             if datetime.now()>datetime(year=this_year,month=ws.cell(row=b_row,column=buffer1).value.month,day=ws.cell(row=b_row,column=buffer1).value.day):
                                 ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
-                                jk="hello!!!"
+                                step2=1
                         break
                
                 if k == 200:
@@ -250,7 +252,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(jk)),        
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)),        
             )
 
 
