@@ -236,6 +236,9 @@ def response_message(event):
                         ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                         ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
                         ws_w.cell(row=issue_id,column=buffer2,value=ws.cell(row=b_row,column=buffer2).value)
+                        wb_w.save("user"+str(User_id)+".xlsx")
+                        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+                        ws = wb["plan"]#get sheet data(ws=work sheet)
                         if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
                             step1=1
                             if datetime.now()>datetime(year=this_year,month=ws.cell(row=b_row,column=buffer1).value.month,day=ws.cell(row=b_row,column=buffer1).value.day):
@@ -252,7 +255,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)))),        
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+str(ws.cell(row=b_row,column=buffer2).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)))+str(ws.cell(row=issue_id,column=buffer1).value)),        
             )
 
 
