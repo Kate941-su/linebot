@@ -35,6 +35,10 @@ buffer3=13
 error_catch=14
 mistake=15
 send_id=16
+buffer_id=17
+buffer_date=18
+true_date=19
+true_time=20
 wb=px.load_workbook("sample.xlsx")#open xls file(wb=work book)
 ws = wb["plan"]#get sheet data(ws=work sheet)
 col_end=ws.max_column
@@ -52,6 +56,8 @@ ws_w=wb_w.worksheets[0]
 #本来ならrow=issue_id
 ws_w.cell(row=2,column=yyyy).value=year
 ws_w.cell(row=5,column=buffer1,value="11月3日")
+#試し
+#ws_w.cell(row=5,column=buffer2,value="11:11")
 wb.save("sample.xlsx")
 wb=px.load_workbook("sample.xlsx")#open xls file(wb=work book)
 ws = wb["plan"]#get sheet data(ws=work sheet)
@@ -61,7 +67,7 @@ print(type(ws.cell(row=5,column=buffer1).value))
 #確認
 #print(type(ws.cell(row=5,column=buffer1).value))
 #print(ws.cell(row=2,column=buffer1).value)
-print(type(ws.cell(row=4,column=buffer1).value) is datetime)
+print(type(ws.cell(row=5,column=buffer1).value) is datetime)
 #print(str(ws.cell(row=2,column=buffer1).value) == "今日")
 if ws.cell(row=3,column=buffer1).value=="今日":
     ws_w.cell(row=3,column=MM,value=month)
@@ -198,6 +204,7 @@ except:
 #flag3 phase
 Plan=ws_w.cell(row=2,column=buffer3).value
 ws_w.cell(row=2,column=plan,value=Plan)
+ws_w.cell(row=8,column=plan,value='=SUM(A1:A3)')
 wb_w.save("sample.xlsx") 
 
 if datetime(ws.cell(row=2,column=yyyy).value,ws.cell(row=2,column=MM).value,ws.cell(row=4,column=dd).value,ws.cell(row=4,column=hh).value,ws.cell(row=4,column=mm).value) < datetime.now():
@@ -247,3 +254,4 @@ for i in range(2,max_issue_id+1):
     if is_issueid != None:
         if datetime(ws.cell(row=i,column=yyyy).value,ws.cell(row=i,column=MM).value,ws.cell(row=i,column=dd).value,ws.cell(row=i,column=hh).value,ws.cell(row=i,column=mm).value) < datetime.now():
             print("hello world")
+

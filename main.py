@@ -83,6 +83,9 @@ def response_message(event):
     mistake=15
     send_id=16
     bffer_id=17
+    buffer_date=18
+    true_date=19
+    true_time=20
 
 #buffering_row
     b_row=201
@@ -122,7 +125,7 @@ def response_message(event):
                 if event.message.text == "予約":
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11月6日\n※予約時刻は10分単位で行います1分単位で予約すると10分繰り上げ通知となります"),               
+                    TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11/6\n※予約時刻は10分単位で行います1分単位で予約すると10分繰り上げ通知となります"),               
                 )
                     ws_w.cell(row=b_row,column=flag,value=1)
                 else:
@@ -174,7 +177,7 @@ def response_message(event):
                         TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）\n"),
                         )
                         ws_w.cell(row=b_row,column=flag,value=2)
-                        ws_w.cell(row=b_row,column=buffer1,value=event.message.text)#issue id
+                        ws_w.cell(row=b_row,column=buffer_date,value=event.message.text)#issue id
                 
                     else:
                         line_bot_api.reply_message(
@@ -234,14 +237,17 @@ def response_message(event):
                 issue_id=20#randint(2,200)
 
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
-                ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
-                ws_w.cell(row=issue_id,column=buffer2,value=ws.cell(row=b_row,column=buffer2).value)
+                if ws.cell(row=issue_id,column=buffer_date).value != None:
+                    ws_w.cell(row=issue_id,column=true_date,value="=DATEVALUE(R"+str(issue_id)+")")
+                else:
+                    ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
+                ws_w.cell(row=issue_id,column=true_time,value="=TIMEVALUE(L"+str(issue_id)+")")
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
                 if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
                     step1=1
-                    if datetime.now()>datetime(year=this_year,month=ws.cell(row=b_row,column=buffer1).value.month,day=ws.cell(row=b_row,column=buffer1).value.day):
+                    if datetime.now()>datetime(year=this_year,month=ws.cell(row=issue_id,column=true_date).value.month,day=ws.cell(row=issue_id,column=true_date).value.day):
                         ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
                         step2=1
 
