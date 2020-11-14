@@ -279,11 +279,12 @@ def response_message(event):
                 ws = wb["plan"]#get sheet data(ws=work sheet)
 
                 #翌年への移行
-                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
-                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
-                    wb_w.save("user"+str(User_id)+".xlsx")
-                    wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
-                    ws = wb["plan"]#get sheet data(ws=work sheet)
+                if ws.cell(row=b_row,column=b_month).value != 0:
+                    if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
+                        ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+                        wb_w.save("user"+str(User_id)+".xlsx")
+                        wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+                        ws = wb["plan"]#get sheet data(ws=work sheet)
 
                 else:
                     ws_w.cell(row=issue_id,column=yyyy,value=this_year)
