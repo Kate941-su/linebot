@@ -256,17 +256,17 @@ def response_message(event):
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
 
-                k=0
+                k=2
                 step1=0
                 step2=0
                 while k<200:
-                    k+=1
-                    issue_id=randint(2,201)
+                    issue_id=k
                     if type(ws.cell(row=issue_id,column=issue_id_col).value) == type(1):
                         continue
                     else:
                         ws_w.cell(row=issue_id,column=issue_id_col).value = issue_id
                         break
+                    k+=1
                     
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                 ws_w.cell(row=issue_id,column=b_month)
