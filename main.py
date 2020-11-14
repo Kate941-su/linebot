@@ -259,14 +259,14 @@ def response_message(event):
                 k=2
                 step1=0
                 step2=0
-                while k<200:
-                    issue_id=k
+                for i in range(2,201):
+                    issue_id=i
                     if type(ws.cell(row=issue_id,column=issue_id_col).value) == type(1):
                         continue
                     else:
                         ws_w.cell(row=issue_id,column=issue_id_col,value=issue_id)
                         break
-                    k+=1
+                    
                     
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                 ws_w.cell(row=issue_id,column=b_month)
