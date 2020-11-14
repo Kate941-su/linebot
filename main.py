@@ -200,7 +200,7 @@ def response_message(event):
                     if error_flag == 0:    
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text="何の予定がありますか？\n"),
+                        TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）"),
                         )
                         ws_w.cell(row=b_row,column=flag,value=2)
                         ws_w.cell(row=b_row,column=b_month,value=r_message[0])#issue id
@@ -286,7 +286,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=b_row,column=b_month).value)+"月"+str(ws.cell(row=b_row,column=b_day).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"),        
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=b_month).value)+"月"+str(ws.cell(row=b_row,column=b_day).value)+"日の"+str(ws.cell(row=b_row,column=b_hour).value)+"時"+str(ws.cell(row=b_row,column=b_minute).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"),        
             )
 
 
