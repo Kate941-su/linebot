@@ -264,7 +264,7 @@ def response_message(event):
                     if type(ws.cell(row=issue_id,column=issue_id_col).value) == type(1):
                         continue
                     else:
-                        ws_w.cell(row=issue_id,column=issue_id_col).value = issue_id
+                        ws_w.cell(row=issue_id,column=issue_id_col,value=issue_id)
                         break
                     k+=1
                     

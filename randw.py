@@ -61,7 +61,7 @@ ws_w.cell(row=5,column=buffer1,value="11月3日")
 wb.save("sample.xlsx")
 wb=px.load_workbook("sample.xlsx")#open xls file(wb=work book)
 ws = wb["plan"]#get sheet data(ws=work sheet)
-print(type(ws.cell(row=5,column=buffer1).value))
+print(type(ws.cell(row=10,column=buffer1).value))
 #flag1 phase
 #today
 #確認
