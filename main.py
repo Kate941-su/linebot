@@ -294,7 +294,7 @@ def response_message(event):
                     if ws.cell(row=b_row,column=b_month).value != 0:
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text=str(ws.cell(row=b_row,column=MM).value)+"月"+str(ws.cell(row=b_row,column=b_day).value)+"日の"+str(ws.cell(row=b_row,column=b_hour).value)+"時"+str(ws.cell(row=b_row,column=b_minute).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
+                        TextSendMessage(text=str(ws.cell(row=issue_id,column=MM).value)+"月"+str(ws.cell(row=b_row,column=b_day).value)+"日の"+str(ws.cell(row=b_row,column=b_hour).value)+"時"+str(ws.cell(row=b_row,column=b_minute).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
                         )
                     else:
                         line_bot_api.reply_message(
