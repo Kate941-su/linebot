@@ -277,14 +277,21 @@ def response_message(event):
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
-#                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,)
 
-#                if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
-#                    step1=1
+                #翌年への移行
+                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
+                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+                    wb_w.save("user"+str(User_id)+".xlsx")
+                    wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+                    ws = wb["plan"]#get sheet data(ws=work sheet)
 
-#                    if datetime.now()>datetime(year=this_year,month=ws.cell(row=issue_id,column=true_date).value.month,day=ws.cell(row=issue_id,column=true_date).value.day):
-#                        ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
-#                        step2=1
+                else:
+                    ws_w.cell(row=issue_id,column=yyyy,value=this_year)
+
+                wb_w.save("user"+str(User_id)+".xlsx")
+                wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
+                ws = wb["plan"]#get sheet data(ws=work sheet)
+
                 if k == 200:
                     line_bot_api.reply_message(
                     event.reply_token,
@@ -295,7 +302,7 @@ def response_message(event):
                     if ws.cell(row=b_row,column=b_month).value != 0:
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text=str(type(ws.cell(row=issue_id,column=MM).value))+"月"+str(ws.cell(row=issue_id,column=dd).value)+"日の"+str(ws.cell(row=issue_id,column=hh).value)+"時"+str(ws.cell(row=issue_id,column=mm).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
+                        TextSendMessage(text=str(ws.cell(row=issue_id,column=MM).value)+"月"+str(ws.cell(row=issue_id,column=dd).value)+"日の"+str(ws.cell(row=issue_id,column=hh).value)+"時"+str(ws.cell(row=issue_id,column=mm).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
                         )
                     else:
                         line_bot_api.reply_message(
