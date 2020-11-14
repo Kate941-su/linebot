@@ -259,10 +259,15 @@ def response_message(event):
                 k=0
                 step1=0
                 step2=0
-
-                k+=1
-                issue_id=20#randint(2,200)
-
+                while k<200:
+                    k+=1
+                    issue_id=randint(2,201)
+                    if type(ws.cell(row=issue_id,column=issue_id_col).value) == type(1):
+                        continue
+                    else:
+                        ws_w.cell(row=issue_id,column=issue_id_col).value = issue_id
+                        break
+                    
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                 ws_w.cell(row=issue_id,column=b_month)
                 ws_w.cell(row=issue_id,column=true_time,value='=SUM(L20)')
@@ -286,7 +291,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=b_row,column=b_month).value)+"月"+str(ws.cell(row=b_row,column=b_day).value)+"日の"+str(ws.cell(row=b_row,column=b_hour).value)+"時"+str(ws.cell(row=b_row,column=b_minute).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"),        
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=b_month).value)+"月"+str(ws.cell(row=b_row,column=b_day).value)+"日の"+str(ws.cell(row=b_row,column=b_hour).value)+"時"+str(ws.cell(row=b_row,column=b_minute).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
             )
 
 
