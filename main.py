@@ -86,9 +86,16 @@ def response_message(event):
     buffer_date=18
     true_date=19
     true_time=20
-
+    b_month=21
+    b_day=22
+    b_hour=23
+    b_minute=24
 #buffering_row
     b_row=201
+
+
+    list30=[4,6,9,11]
+    list31=[1,3,5,7,8,10,12]
 
 #入力ミス防止    
     error_flag=0
@@ -169,22 +176,42 @@ def response_message(event):
                     ws_w.cell(row=b_row,column=buffer1,value=event.message.text)#issue id
 
                     #今日明日明後日意外の処理
-                else:
-                    
-                    if bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)):
+                else:                
+                    r_message=event.message.text           
+                    try:
+                        k=0
+                        r_message=r_message.split("/")
+                        for i in r_message:
+                            r_message[k]=int(i)
+                            k+=1
+                        if r_message[0] in list30:
+                            if r_message[1]>30:
+                                error_flag=1
+                        elif r_message[0] in list31:
+                            if r_message[1]>31:
+                                error_flag=1
+                        else:
+                            if r_message[1]>28:
+                                error_flag=1
+                    except:
+                        error_flag=1
+
+
+                    if error_flag == 0:    
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text="何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）\n"),
+                        TextSendMessage(text="何の予定がありますか？\n"),
                         )
                         ws_w.cell(row=b_row,column=flag,value=2)
-                        ws_w.cell(row=b_row,column=buffer_date,value=event.message.text)#issue id
-                
+                        ws_w.cell(row=b_row,column=b_month,value=r_message[0])#issue id
+                        ws_w.cell(row=b_row,column=b_day,value=r_message[1])
                     else:
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text="入力ミスがあります。このような間違えはありませんか？\n数字が半角、月日をどちらか抜かしている")
-                        ),
+                        TextSendMessage(text="入力ミスがあります。ex)明日、今日、明後日、11/6"),
+                        )
                         ws_w.cell(row=b_row,column=flag,value=1)
+        #               ws_w.cell(row=b_row,column=buffer1,value=event.message.text)
                         ws_w.cell(row=b_row,column=mistake,value=Mistake+1)
 
     #Flag2 phase
@@ -209,8 +236,8 @@ def response_message(event):
                     TextSendMessage(text="何の予定がありますか？\n"),
                     )
                     ws_w.cell(row=b_row,column=flag,value=3)
-                    ws_w.cell(row=b_row,column=buffer2,value=event.message.text)#issue id
-
+                    ws_w.cell(row=b_row,column=b_hour,value=r_message[0])#issue id
+                    ws_w.cell(row=b_row,column=b_minute,value=r_message[1])#issue id
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
@@ -237,10 +264,7 @@ def response_message(event):
                 issue_id=20#randint(2,200)
 
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
-                if ws.cell(row=b_row,column=buffer_date).value != None:
-                    ws_w.cell(row=issue_id,column=true_date,value='=DATEVALUE(R'+str(issue_id)+')')
-                else:
-                    ws_w.cell(row=issue_id,column=buffer1,value=ws.cell(row=b_row,column=buffer1).value)
+                ws_w.cell(row=issue_id,column=b_month)
                 ws_w.cell(row=issue_id,column=true_time,value='=SUM(L20)')
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
@@ -262,7 +286,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=issue_id,column=true_date).value)+str(ws.cell(row=issue_id,column=true_time).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(step1)+str(step2)+str(bool(re.match(pattern,ws.cell(row=b_row,column=buffer1).value)))+str(ws.cell(row=issue_id,column=buffer1).value)),        
+                    TextSendMessage(text=str(ws.cell(row=b_row,column=b_month).value)+"月"+str(ws.cell(row=b_row,column=b_day).value)+"に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"),        
             )
 
 
