@@ -286,8 +286,6 @@ def response_message(event):
 
                 #tomorrow
                 elif ws.cell(row=b_row,column=buffer1).value == "明日":
-                    month=11
-                    day=30
                     ws_w.cell(row=issue_id,column=MM,value=month)#month
                     tomorrow=day+1
                     ws_w.cell(row=issue_id,column=dd,value=tomorrow)
@@ -319,8 +317,6 @@ def response_message(event):
 
                 #day after tomorrow
                 elif ws.cell(row=b_row,column=buffer1).value == "明後日":
-                    month=11
-                    day=30
                     ws_w.cell(row=issue_id,column=MM,value=month)#month
                     d_a_tomorrow=day+2
                     ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow)
