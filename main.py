@@ -323,7 +323,6 @@ def response_message(event):
                     wb_w.save("user"+str(User_id)+".xlsx")
                     wb=px.load_workbook("user"+str(User_id)+".xlsx")#reopen xls file(wb=work book)
                     ws = wb["plan"]#get sheet data(ws=work sheet)
-                    wb_w.save("user"+str(User_id)+".xlsx")
 
                     #月繰り上げ処理
                     if int(ws.cell(row=issue_id,column=MM).value) in list30:
