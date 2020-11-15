@@ -362,10 +362,10 @@ def response_message(event):
 
 
 
-#                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
-#                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
-#                else:
-#                    ws_w.cell(row=issue_id,column=yyyy,value=this_year)
+                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
+                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+                else:
+                    ws_w.cell(row=issue_id,column=yyyy,value=this_year)
 
 
 
@@ -380,11 +380,16 @@ def response_message(event):
                     )
                     
                 else:
-
-                    line_bot_api.reply_message(
-                    event.reply_token,
-                    TextSendMessage(text=str(ws.cell(row=issue_id,column=yyyy).value)+"年"+str(ws.cell(row=issue_id,column=MM).value)+"月"+str(ws.cell(row=issue_id,column=dd).value)+"日の"+str(ws.cell(row=issue_id,column=hh).value)+"時"+str(ws.cell(row=issue_id,column=mm).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
-                    )
+                    if type(ws.cell(row=issue_id,column=buffer1).value) == type("hello"):
+                        line_bot_api.reply_message(
+                        event.reply_token,
+                        TextSendMessage(text=str(ws.cell(row=issue_id,column=buffer1).value)+"の"+str(ws.cell(row=issue_id,column=hh).value)+"時"+str(ws.cell(row=issue_id,column=mm).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
+                        )
+                    else:
+                        line_bot_api.reply_message(
+                        event.reply_token,
+                        TextSendMessage(text=str(ws.cell(row=issue_id,column=yyyy).value)+"年"+str(ws.cell(row=issue_id,column=MM).value)+"月"+str(ws.cell(row=issue_id,column=dd).value)+"日の"+str(ws.cell(row=issue_id,column=hh).value)+"時"+str(ws.cell(row=issue_id,column=mm).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
+                        )
 
 
 
