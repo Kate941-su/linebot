@@ -288,6 +288,7 @@ def response_message(event):
  #                   ws = wb["plan"]#get sheet data(ws=work sheet)
 
                 #tomorrow
+                ws_w.cell(row=issue_id,column=MM,value=month)#month
                 if ws.cell(row=b_row,column=buffer1).value == "明日":
                     ws_w.cell(row=issue_id,column=MM,value=month)#month
                     tomorrow=day+1
