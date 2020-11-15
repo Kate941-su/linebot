@@ -282,13 +282,8 @@ def response_message(event):
                 if ws.cell(row=b_row,column=buffer1).value=="今日":
                     ws_w.cell(row=issue_id,column=MM,value=month)
                     ws_w.cell(row=issue_id,column=dd,value=day)
-                    #save and reopen
- #                   wb_w.save("user"+str(User_id)+".xlsx")
- #                   wb=px.load_workbook("user"+str(User_id)+".xlsx")#reopen xls file(wb=work book)
- #                   ws = wb["plan"]#get sheet data(ws=work sheet)
 
                 #tomorrow
-                ws_w.cell(row=issue_id,column=MM,value=month)#month
                 if ws.cell(row=b_row,column=buffer1).value == "明日":
                     ws_w.cell(row=issue_id,column=MM,value=month)#month
                     tomorrow=day+1
@@ -353,6 +348,7 @@ def response_message(event):
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#reopen xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
+                
                 #年明け処理
                 if int(ws.cell(row=issue_id,column=MM).value) >12:
                     ws_w.cell(row=issue_id,column=MM,value=1)
