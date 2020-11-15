@@ -315,8 +315,8 @@ def response_message(event):
 
 
                 #day after tomorrow
-                elif ws.cell(row=issue_id,column=buffer1).value == "明後日":
-                    int(ws_w.cell(row=issue_id,column=MM,value=month))#month
+                elif ws.cell(row=b_row,column=buffer1).value == "明後日":
+                    ws_w.cell(row=issue_id,column=MM,value=month)#month
                     d_a_tomorrow=day+2
                     ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow)
                     #save and reopen
