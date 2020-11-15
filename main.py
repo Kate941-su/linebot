@@ -271,6 +271,7 @@ def response_message(event):
                 #予定の処理
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                 #普通に日付を入れたときの処理
+                ws_w.cell(row=issue_id,column=yyyy,value=this_year)
                 ws_w.cell(row=issue_id,column=MM,value=ws.cell(row=b_row,column=b_month).value)
                 ws_w.cell(row=issue_id,column=dd,value=ws.cell(row=b_row,column=b_day).value)
                 ws_w.cell(row=issue_id,column=hh,value=ws.cell(row=b_row,column=b_hour).value)
@@ -363,10 +364,15 @@ def response_message(event):
 
                 #翌年への移行もし明日の処理とかできたらましたのif文はいらない
 
+
+
 #                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
 #                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
 #                else:
 #                    ws_w.cell(row=issue_id,column=yyyy,value=this_year)
+
+
+
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
