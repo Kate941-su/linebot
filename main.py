@@ -268,17 +268,99 @@ def response_message(event):
                         ws_w.cell(row=issue_id,column=issue_id_col,value=issue_id)
                         break
                     
-                    
+                #予定の処理
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
+                #普通に日付を入れたときの処理
                 ws_w.cell(row=issue_id,column=MM,value=ws.cell(row=b_row,column=b_month).value)
                 ws_w.cell(row=issue_id,column=dd,value=ws.cell(row=b_row,column=b_day).value)
                 ws_w.cell(row=issue_id,column=hh,value=ws.cell(row=b_row,column=b_hour).value)
                 ws_w.cell(row=issue_id,column=mm,value=ws.cell(row=b_row,column=b_minute).value)
+                month=datetime.now().month
+                day=datetime.now().day
+                #今日明日明後日の処理
+                #print(str(ws.cell(row=2,column=buffer1).value) == "今日")
+                if ws.cell(row=b_row,column=buffer1).value=="今日":
+                    ws_w.cell(row=issue_id,column=MM,value=month)
+                    ws_w.cell(row=issue_id,column=dd,value=day)
+                    #save and reopen
+ #                   wb_w.save("user"+str(User_id)+".xlsx")
+ #                   wb=px.load_workbook("user"+str(User_id)+".xlsx")#reopen xls file(wb=work book)
+ #                   ws = wb["plan"]#get sheet data(ws=work sheet)
+
+                #tomorrow
+                if ws.cell(row=b_row,column=buffer1).value == "明日":
+                    ws_w.cell(row=issue_id,column=MM,value=month)#month
+                    tomorrow=day+1
+                    ws_w.cell(row=issue_id,column=dd,value=tomorrow)
+                    #save and reopen
+                    wb_w.save("user"+str(User_id)+".xlsx")
+                    wb=px.load_workbook("user"+str(User_id)+".xlsx")#reopen xls file(wb=work book)
+                    ws = wb["plan"]#get sheet data(ws=work sheet)
+
+                    #月繰り上げ処理:list30は30日まで、list31は31日まで
+                    if int(ws.cell(row=issue_id,column=MM).value) in list30:
+                        if tomorrow>30:
+                            ws_w.cell(row=issue_id,column=dd,value=tomorrow-30)
+                            Month=ws.cell(row=issue_id,column=MM).value
+                            ws_w.cell(row=issue_id,column=MM,value=Month+1)
+                    
+                    elif int(ws.cell(row=issue_id,column=MM).value) in list31:
+                        if day>31:
+                            ws_w.cell(row=issue_id,column=dd,value=tomorrow-31)
+                            Month=ws.cell(row=issue_id,column=MM).value
+                            ws_w.cell(row=issue_id,column=MM,value=Month+1)
+                    #2月の処理
+                    else:
+                        if day>28:
+                            ws_w.cell(row=issue_id,column=dd,value=day-28)
+                            Month=ws.cell(row=issue_id,column=MM).value
+                            ws_w.cell(row=issue_id,column=MM,value=Month+1)
+
+
+
+                #day after tomorrow
+                if ws.cell(row=issue_id,column=buffer1).value == "明後日":
+                    d_a_tomorrow=day+2
+                    ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow)
+                    #save and reopen
+                    wb_w.save("user"+str(User_id)+".xlsx")
+                    wb=px.load_workbook("user"+str(User_id)+".xlsx")#reopen xls file(wb=work book)
+                    ws = wb["plan"]#get sheet data(ws=work sheet)
+                    wb_w.save("user"+str(User_id)+".xlsx")
+
+                    #月繰り上げ処理
+                    if int(ws.cell(row=issue_id,column=MM).value) in list30:
+                        if day>29:
+                            ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow-30)
+                            Month=ws.cell(row=issue_id,column=MM).value
+                            ws_w.cell(row=issue_id,column=MM,value=Month+1)
+                    
+                    elif int(ws.cell(row=issue_id,column=MM).value) in list31:
+                        if day>30:
+                            ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow-31)
+                            Month=ws.cell(row=issue_id,column=MM).value
+                            ws_w.cell(row=issue_id,column=MM,value=Month+1)
+                    #2月の処理
+                    else:
+                        if day>27:
+                            ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow-28)
+                            Month=ws.cell(row=issue_id,column=MM).value
+                            ws_w.cell(row=issue_id,column=MM,value=Month+1)
+
+
+                wb_w.save("user"+str(User_id)+".xlsx")
+                wb=px.load_workbook("user"+str(User_id)+".xlsx")#reopen xls file(wb=work book)
+                ws = wb["plan"]#get sheet data(ws=work sheet)
+                #年明け処理
+                if int(ws.cell(row=issue_id,column=MM).value) >12:
+                    ws_w.cell(row=issue_id,column=MM,value=1)
+                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
 
-                #翌年への移行
+                #翌年への移行もし明日の処理とかできたらましたのif文はいらない
                 if ws.cell(row=b_row,column=b_month).value != 0:
                     if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
                         ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
