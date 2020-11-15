@@ -121,50 +121,23 @@ for your_file in your_file_list:
     wb_w.save(your_file) 
 
     if datetime(ws.cell(row=2,column=yyyy).value,ws.cell(row=2,column=MM).value,ws.cell(row=4,column=dd).value,ws.cell(row=4,column=hh).value,ws.cell(row=4,column=mm).value) < datetime.now():
-        print("hello")
-    #    ws_w.cell(row=5,column=yyyy,value=year+1)
-        wb_w.save(your_file)
 
-    #openpyxlは配列１スタート
+        LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 
-    #ws.delete_rows(3)
-    #wb.save(your_file)
+        line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
-    """
-    while True:
-        issue_id=randint(2,20)
-        print(issue_id)
-        is_issue_id=ws.cell(row=issue_id,column=col_end-1).value
-        if (is_issue_id == None):
-            ws_w.cell(row=issue_id,column=col_end-1,value=issue_id)
-            break
-    buffer=ws.cell(issue_id,7).value
-    buffer=buffer.split(",")
+        #print(ws.cell(row=2,column=buffer1).value.month)
+        user_id = ws.cell(row=3,column=send_id).value
+#        if (type(ws.cell(row=3,column=buffer1).value) is datetime):
+#            message = TextSendMessage(text=str(ws.cell(row=3,column=buffer1).value.month)+"月"+str(ws.cell(row=3,column=buffer1).value.day)+"日"+"に"+str(ws.cell(row=3,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=3,column=send_id).value))
+#            line_bot_api.push_message(user_id,message)
+#        else:
+#            message = TextSendMessage(text=str(ws.cell(row=3,column=buffer1).value)+"の"+str(ws.cell(row=3,column=buffer2).value)+"に"+str(ws.cell(row=3,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=3,column=send_id).value))
+#            line_bot_api.push_message(user_id,message)
 
-    #予定の展開
-    for i in range(3,7):
-        ws_w.cell(row=issue_id,column=i,value=int(buffer[i-3]))
-    ws_w.cell(row=issue_id,column=1,value=buffer[4])
-    flag=ws.cell(row=2,column=10).value
-    ws_w.cell(row=2,column=10,value=flag+1)
-    """
-
-    LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-
-    line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-
-    #print(ws.cell(row=2,column=buffer1).value.month)
-    user_id = ws.cell(row=3,column=send_id).value
-    if (type(ws.cell(row=3,column=buffer1).value) is datetime):
-        message = TextSendMessage(text=str(ws.cell(row=3,column=buffer1).value.month)+"月"+str(ws.cell(row=3,column=buffer1).value.day)+"日"+"に"+str(ws.cell(row=3,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=3,column=send_id).value))
-        line_bot_api.push_message(user_id,message)
-    else:
-        message = TextSendMessage(text=str(ws.cell(row=3,column=buffer1).value)+"の"+str(ws.cell(row=3,column=buffer2).value)+"に"+str(ws.cell(row=3,column=buffer3).value)+"で予約しました。\n"+str(ws.cell(row=3,column=send_id).value))
-        line_bot_api.push_message(user_id,message)
-
-    for i in range(2,max_issue_id+1):
-        is_issueid = ws.cell(row=i,column=issue_id_col).value
-        if is_issueid != None:
-            if datetime(ws.cell(row=i,column=yyyy).value,ws.cell(row=i,column=MM).value,ws.cell(row=i,column=dd).value,ws.cell(row=i,column=hh).value,ws.cell(row=i,column=mm).value) < datetime.now():
-                print("hello world")
-
+        for i in range(2,max_issue_id+1):
+            is_issueid = ws.cell(row=i,column=issue_id_col).value
+            if is_issueid != None:
+                if datetime(ws.cell(row=i,column=yyyy).value,ws.cell(row=i,column=MM).value,ws.cell(row=i,column=dd).value,ws.cell(row=i,column=hh).value,ws.cell(row=i,column=mm).value) < datetime.now():
+                    message = TextSendMessage(text=str(ws.cell(row=i,column=buffer3).value)+"の時間です！")
+                    line_bot_api.push_message(user_id,message)

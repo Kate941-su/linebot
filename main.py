@@ -100,7 +100,7 @@ def response_message(event):
 #入力ミス防止    
     error_flag=0
     Flag=0#条件分岐のためのflag
-    pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
+#    pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
     profile = line_bot_api.get_profile(event.source.user_id)
     User_id=profile.user_id
     this_year=2020
