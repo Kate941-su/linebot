@@ -363,10 +363,10 @@ def response_message(event):
 
                 #翌年への移行もし明日の処理とかできたらましたのif文はいらない
 
-                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
-                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
-                else:
-                    ws_w.cell(row=issue_id,column=yyyy,value=this_year)
+#                if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
+#                    ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
+#                else:
+#                    ws_w.cell(row=issue_id,column=yyyy,value=this_year)
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
