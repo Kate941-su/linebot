@@ -304,13 +304,13 @@ def response_message(event):
                             ws_w.cell(row=issue_id,column=MM,value=Month+1)
                     
                     elif int(ws.cell(row=issue_id,column=MM).value) in list31:
-                        if day>31:
+                        if tomorrow>31:
                             ws_w.cell(row=issue_id,column=dd,value=tomorrow-31)
                             Month=ws.cell(row=issue_id,column=MM).value
                             ws_w.cell(row=issue_id,column=MM,value=Month+1)
                     #2月の処理
                     else:
-                        if day>28:
+                        if tomorrow>28:
                             ws_w.cell(row=issue_id,column=dd,value=day-28)
                             Month=ws.cell(row=issue_id,column=MM).value
                             ws_w.cell(row=issue_id,column=MM,value=Month+1)
@@ -331,19 +331,19 @@ def response_message(event):
 
                     #月繰り上げ処理
                     if int(ws.cell(row=issue_id,column=MM).value) in list30:
-                        if day>29:
+                        if d_a_tomorrow>29:
                             ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow-30)
                             Month=ws.cell(row=issue_id,column=MM).value
                             ws_w.cell(row=issue_id,column=MM,value=Month+1)
                     
                     elif int(ws.cell(row=issue_id,column=MM).value) in list31:
-                        if day>30:
+                        if d_a_tomorrow>30:
                             ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow-31)
                             Month=ws.cell(row=issue_id,column=MM).value
                             ws_w.cell(row=issue_id,column=MM,value=Month+1)
                     #2月の処理
                     else:
-                        if day>27:
+                        if d_a_tomorrow>27:
                             ws_w.cell(row=issue_id,column=dd,value=d_a_tomorrow-28)
                             Month=ws.cell(row=issue_id,column=MM).value
                             ws_w.cell(row=issue_id,column=MM,value=Month+1)
