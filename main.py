@@ -133,7 +133,7 @@ def response_message(event):
         Flag=int(ws.cell(row=b_row,column=flag).value)
         Mistake=int(ws.cell(row=b_row,column=mistake).value)
   
-        if int(ws.cell(row=b_row,column=mistake).value)==2:
+        if int(ws.cell(row=b_row,column=mistake).value)==3:
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text="try again at first!!"),
@@ -298,7 +298,12 @@ def response_message(event):
                 month=datetime.now().month
                 day=datetime.now().day
                 #今日明日明後日の処理
-                #print(str(ws.cell(row=2,column=buffer1).value) == "今日")
+               #日本時間調整
+                english_hour=datetime.now().hour
+                japanese_hour=english_hour+9
+                if japanese_hour >=24:
+                    day+=1
+                
                 if ws.cell(row=b_row,column=buffer1).value=="今日":
                     ws_w.cell(row=issue_id,column=MM,value=month)
                     ws_w.cell(row=issue_id,column=dd,value=day)
