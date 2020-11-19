@@ -395,7 +395,7 @@ def response_message(event):
                 Send_id=str(ws.cell(row=issue_id,column=send_id).value)
                 Issue_id=str(ws.cell(row=issue_id,column=issue_id_col).value)
 
-                cur.execute("insert into User"+str(User_id)+"demo values(%s,%s,%s,%s,%s,%s,%s,%s);",(Plan,Year,Month,Day,Hour,Minute,Send_id,Issue_id))
+                cur.execute("insert into User"+str(User_id)+" values(%s,%s,%s,%s,%s,%s,%s,%s);",(Plan,Year,Month,Day,Hour,Minute,Send_id,Issue_id))
                 if issue_id == 200:
                     line_bot_api.reply_message(
                     event.reply_token,
