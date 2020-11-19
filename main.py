@@ -112,7 +112,7 @@ def response_message(event):
     User_id=profile.user_id
     this_year=2020
     context = "{}"
-    context = context.format("plan text,yyyy int,MM int,dd int,hh int,mm int,send_id text,issue_id int")
+    context = context.format("plan text,yyyy int,MM int,dd int,hh int,mmmm int,send_id text,issue_id int")
     cur.execute("create table if not exists User"+str(User_id)+"("+context+");")
     results= cur.fetchall()
 #fileの有無　あればそれを開くなければつくってそれを開く
