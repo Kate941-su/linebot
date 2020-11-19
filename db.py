@@ -11,13 +11,6 @@ Password=os.environ.get('PG_PASS')
 user_id=os.environ.get('USER_ID')
 connection = p2.connect("host="+str(Host)+" port="+str(Port)+" dbname="+str(Database)+" user="+str(User)+" password="+str(Password))
 
-#connection = p2.connect(
-#    host=os.environ.get('PG_HOST'),
-#    port=os.environ.get('PG_PORT'),
-#    database=os.environ.get('PG_DBNM'),    
-#    user=os.environ.get('PC_USER'), 
-#    password=os.environ.get('PG_PASS'),
-#)
 
 
 #自動トランザクション
