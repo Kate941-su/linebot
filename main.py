@@ -282,7 +282,7 @@ def response_message(event):
                 issue_id=10000
 
                 #予定の処理
-                ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
+                ws_w.cell(row=issue_id,column=plan,value=ws.cell(row=b_row,column=buffer3).value)
                 #普通に日付を入れたときの処理
                 ws_w.cell(row=issue_id,column=yyyy,value=this_year)
                 ws_w.cell(row=issue_id,column=MM,value=ws.cell(row=b_row,column=b_month).value)
@@ -392,8 +392,8 @@ def response_message(event):
                 Day=int(ws.cell(row=issue_id,column=dd).value)
                 Hour=int(ws.cell(row=issue_id,column=hh).value)
                 Minute=int(ws.cell(row=issue_id,column=mm).value)
-                Send_id=str(ws.cell(row=issue_id,column=send_id).value)
-                Issue_id=str(ws.cell(row=issue_id,column=issue_id_col).value)
+                Send_id=str(User_id)
+                Issue_id=issue_id
 
                 cur.execute("insert into User"+str(User_id)+" values(%s,%s,%s,%s,%s,%s,%s,%s);",(Plan,Year,Month,Day,Hour,Minute,Send_id,Issue_id))
                 if issue_id == 200:
