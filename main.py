@@ -13,6 +13,8 @@ from datetime import datetime
 import openpyxl as px
 from random import randint
 
+import psycopg2 as p2
+
 app = Flask(__name__)
 
 #環境変数取得
@@ -67,7 +69,12 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def response_message(event):
-#each column
+
+#connect heroku postgresql
+    connection = p2.connect("host=ec2-3-213-106-122.compute-1.amazonaws.com port=5432 dbname=dap1bs8ml5o18m user=lenlmwyicflwcu password=a6d1cfd820fd5146b52ebf39c8a6bde0d5e71e1ec5b12fd85307ecb43ccf928d")
+    connection.autocommit = True
+    #これによってSQLオブジェクトを使用可能にする
+    cur = connection.cursor()
     plan=1
     yyyy=2
     MM=3
@@ -104,6 +111,10 @@ def response_message(event):
     profile = line_bot_api.get_profile(event.source.user_id)
     User_id=profile.user_id
     this_year=2020
+    context = "{}"
+    context = context.format("plan text,yyyy int,MM int,dd int,hh int,mm int,send_id text,issue_id int")
+    cur.execute("create table if not exists User"+str(User_id)+"("+context+");")
+    results= cur.fetchall()
 #fileの有無　あればそれを開くなければつくってそれを開く
     if os.path.exists("./user"+str(User_id)+".xlsx"):
         wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
@@ -256,18 +267,19 @@ def response_message(event):
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
 
-                k=0
-                step1=0
-                step2=0
-                for i in range(2,201):
-                    issue_id=i
-                    k=i
-                    if type(ws.cell(row=issue_id,column=issue_id_col).value) == type(1):
-                        continue
-                    else:
-                        ws_w.cell(row=issue_id,column=issue_id_col,value=issue_id)
-                        break
-                    
+#                k=0
+#                for i in range(2,201):
+#                    issue_id=i
+#                    k=i
+#                    if type(ws.cell(row=issue_id,column=issue_id_col).value) == type(1):
+#                        continue
+#                    else:
+#                        ws_w.cell(row=issue_id,column=issue_id_col,value=issue_id)
+#                        break
+
+
+                issue_id=10000
+
                 #予定の処理
                 ws_w.cell(row=issue_id,column=buffer3,value=ws.cell(row=b_row,column=buffer3).value)
                 #普通に日付を入れたときの処理
@@ -373,7 +385,17 @@ def response_message(event):
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
 
-                if k == 200:
+                Plan=ws.cell(row=issue_id,column=plan).value
+                Year=int(ws.cell(row=issue_id,column=yyyy).value)
+                Month=int(ws.cell(row=issue_id,column=MM).value)
+                Day=int(ws.cell(row=issue_id,column=dd).value)
+                Hour=int(ws.cell(row=issue_id,column=hh).value)
+                Minute=int(ws.cell(row=issue_id,column=mm).value)
+                Send_id=str(ws.cell(row=issue_id,column=send_id).value)
+                Issue_id=str(ws.cell(row=issue_id,column=issue_id_col).value)
+
+                cur.execute("insert into User"+str(User_id)+"demo values(%s,%s,%s,%s,%s,%s,%s,%s);",(Plan,Year,Month,Day,Hour,Minute,Send_id,Issue_id))
+                if issue_id == 200:
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="予約上限です\n削除するか通知を待ってから追加できます"),        

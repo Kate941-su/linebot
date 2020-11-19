@@ -9,32 +9,42 @@ dictcur = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 connection.autocommit = True
 print(connection.get_backend_pid())
 
-
+context = "{}"
+context = context.format("id int,data text,day date,min time")
 #これによってSQLオブジェクトを使用可能にする
 cur = connection.cursor()
 #print(cur)
-cur.execute("create table demo(id int,data text,day date)")
-cur.execute("insert into demo values(1,'HELLOWORLDMYNAMEISKAITO','2020/11/18');")
-cur.execute("insert into demo values(2,'HELLO MMA','2020/11/19');")
+val=1
+char='hellokitayakaito'
+day='2020/11/20'
+tim='11:11'
+cur.execute("create table if not exists "+str("hello")+"demo("+context+");")
+print(cur.execute("select count (*) from hellodemo;"))
+cur.execute("insert into hellodemo values(2,'HELLO MMA','2020/11/19','11:11');")
+#py変数の代入
+cur.execute("insert into "+str("hello")+"demo values(%s,%s,%s,%s);",(val,char,day,tim))
+cur.execute("delete from hellodemo where id =1")
+cur.execute("delete from hellodemo where id =2")
 
 
 #saveみたいな意味
 connection.commit()
 """
-dictcur.execute('SELECT * FROM demo;')
+dictcur.execute('SELECT * FROM hellodemo;')
 results = dictcur.fetchall()
 for r in results:
   print(r['column'])
 """
 
 #SQL文の実行
-cur.execute("SELECT * FROM demo;")
+cur.execute("SELECT * FROM hellodemo;")
 results= cur.fetchall()
-for i in results:
-    print(i[0],i[1],type(i[2]))
+print(len(results))
+for record in results:
+    print(record)
 
 #DBの削除
-cur.execute("drop table demo;")
+#cur.execute("drop table if exists hellodemo;")
 
 
 #cur.execute("select id, data from demo")
