@@ -114,7 +114,7 @@ def response_message(event):
     context = "{}"
     context = context.format("plan text,yyyy int,MM int,dd int,hh int,mmmm int,send_id text,issue_id int")
     cur.execute("create table if not exists User"+str(User_id)+"("+context+");")
-    results= cur.fetchall()
+    db_data= cur.fetchall()
 #fileの有無　あればそれを開くなければつくってそれを開く
     if os.path.exists("./user"+str(User_id)+".xlsx"):
         wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
