@@ -71,7 +71,12 @@ def handle_message(event):
 def response_message(event):
 
 #connect heroku postgresql
-    connection = p2.connect("host=ec2-3-213-106-122.compute-1.amazonaws.com port=5432 dbname=dap1bs8ml5o18m user=lenlmwyicflwcu password=a6d1cfd820fd5146b52ebf39c8a6bde0d5e71e1ec5b12fd85307ecb43ccf928d")
+    Host=os.environ.get('PG_HOST')
+    Port=os.environ.get('PG_PORT')
+    Database=os.environ.get('PG_DBNM')
+    User=os.environ.get('PG_USER')
+    Password=password=os.environ.get('PG_PASS')
+    connection = p2.connect("host="+str(Host)+" port="+str(Port)+" dbname="+str(Database)+" user="+str(User)+" password="+str(Password))
     connection.autocommit = True
     #これによってSQLオブジェクトを使用可能にする
     cur = connection.cursor()

@@ -1,9 +1,23 @@
 import psycopg2 as p2
 import psycopg2.extras
+import os
 
 
+Host=os.environ.get('PG_HOST')
+Port=os.environ.get('PG_PORT')
+Database=os.environ.get('PG_DBNM')
+User=os.environ.get('PG_USER')
+Password=password=os.environ.get('PG_PASS')
+connection = p2.connect("host="+str(Host)+" port="+str(Port)+" dbname="+str(Database)+" user="+str(User)+" password="+str(Password))
 
-connection = p2.connect("host=ec2-3-213-106-122.compute-1.amazonaws.com port=5432 dbname=dap1bs8ml5o18m user=lenlmwyicflwcu password=a6d1cfd820fd5146b52ebf39c8a6bde0d5e71e1ec5b12fd85307ecb43ccf928d")
+#connection = p2.connect(
+#    host=os.environ.get('PG_HOST'),
+#    port=os.environ.get('PG_PORT'),
+#    database=os.environ.get('PG_DBNM'),    
+#    user=os.environ.get('PC_USER'), 
+#    password=os.environ.get('PG_PASS'),
+#)
+
 dictcur = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 #自動トランザクション
 connection.autocommit = True
