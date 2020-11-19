@@ -14,7 +14,7 @@ import openpyxl as px
 from random import randint
 
 import psycopg2 as p2
-
+import psycopg2.extras
 app = Flask(__name__)
 
 #環境変数取得
@@ -376,10 +376,6 @@ def response_message(event):
                 wb_w.save("user"+str(User_id)+".xlsx")
                 wb=px.load_workbook("user"+str(User_id)+".xlsx")#open xls file(wb=work book)
                 ws = wb["plan"]#get sheet data(ws=work sheet)
-
-                #翌年への移行もし明日の処理とかできたらましたのif文はいらない
-
-
 
                 if datetime.now() > datetime(year=this_year,month=ws.cell(row=issue_id,column=MM).value,day=ws.cell(row=issue_id,column=dd).value,hour=ws.cell(row=issue_id,column=hh).value,minute=ws.cell(row=issue_id,column=mm).value):
                     ws_w.cell(row=issue_id,column=yyyy,value=this_year+1)
