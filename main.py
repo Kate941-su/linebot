@@ -442,7 +442,7 @@ def response_message(event):
             TextSendMessage(text="登録までお待ちください"),
         ) 
         user_id = os.environ["MY_ID"]
-        line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+str(user_id)+"さんが登録を要請しました。\nファイルの作成をしてください。\nファイル名"+str(user_id)+".xlsx")
+        line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+"user"+str(user_id)+"さんが登録を要請しました。\nファイルの作成をしてください。\nファイル名"+str(user_id)+".xlsx")
         )
 
 

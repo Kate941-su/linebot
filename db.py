@@ -19,7 +19,7 @@ char='hellokitayakaito'
 day='2020/11/20'
 tim='11:11'
 cur.execute("create table if not exists "+str("hello")+"demo("+context+");")
-print(cur.execute("select count (*) from hellodemo;"))
+#print(cur.execute("select count (*) from hellodemo;"))
 cur.execute("insert into hellodemo values(2,'HELLO MMA','2020/11/19','11:11');")
 #py変数の代入
 cur.execute("insert into "+str("hello")+"demo values(%s,%s,%s,%s);",(val,char,day,tim))
