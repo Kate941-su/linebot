@@ -9,6 +9,7 @@ from linebot.exceptions import  InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,ButtonsTemplate,MessageAction
 
 from datetime import datetime
+from datetime import timedelta
 
 import openpyxl as px
 from random import randint
@@ -301,14 +302,29 @@ def response_message(event):
                 ws_w.cell(row=issue_id,column=dd,value=ws.cell(row=b_row,column=b_day).value)
                 ws_w.cell(row=issue_id,column=hh,value=ws.cell(row=b_row,column=b_hour).value)
                 ws_w.cell(row=issue_id,column=mm,value=ws.cell(row=b_row,column=b_minute).value)
-                month=datetime.now().month
-                day=datetime.now().day
+                dt=datetime.now()
+                dt+=timedelta(hours=9)
+                month=dt.month
+                day=dt.day
                 #今日明日明後日の処理
                #日本時間調整
-                english_hour=datetime.now().hour
-                japanese_hour=english_hour+9
-                if japanese_hour >=24:
-                    day+=1
+
+#                english_hour=datetime.now().hour
+#                japanese_hour=english_hour+9
+#                if japanese_hour >=24:
+#                    day+=1
+#                    if month in list30:
+#                        if day>30:
+#                            day-=30
+#                            month+=1
+#                    if month in list31:
+#                        if day > 31:
+#                            day-=31
+#                            month+=1
+#                    else:
+#                        if day>27:
+#                            day-=27
+#                            month+=1
                 
                 if ws.cell(row=b_row,column=buffer1).value=="今日":
                     ws_w.cell(row=issue_id,column=MM,value=month)
@@ -405,6 +421,8 @@ def response_message(event):
                 Day=int(ws.cell(row=issue_id,column=dd).value)
                 Hour=int(ws.cell(row=issue_id,column=hh).value)
                 Minute=int(ws.cell(row=issue_id,column=mm).value)
+
+
                 Send_id=str(User_id)
                 Issue_id=issue_id
 
