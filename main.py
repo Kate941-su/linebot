@@ -280,7 +280,7 @@ def response_message(event):
                 for row in result_dict:
                     dict_result.append(dict(row))
                 for i in dict_result:
-                    list_db.append(dict_result[i]["issue_id"])
+                    list_db.append(int(dict_result[i]["issue_id"]))
                 len_dic=len(result_dict)
 #   もしデータベースに予約がなかったらissue_id=1あったらissue_id
                 if len_dic == 0:

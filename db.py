@@ -37,12 +37,6 @@ cur.execute("insert into "+str("hello")+"demo values(%s,%s,%s,%s);",(val,char,da
 
 #saveみたいな意味
 connection.commit()
-"""
-dictcur.execute('SELECT * FROM hellodemo;')
-results = dictcur.fetchall()
-for r in results:
-  print(r['column'])
-"""
 
 #SQL文の実行
 cur.execute("SELECT * FROM hellodemo;")
