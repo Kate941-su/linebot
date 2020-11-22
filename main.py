@@ -279,15 +279,15 @@ def response_message(event):
             #辞書型に格納
                 for row in result_dict:
                     dict_result.append(dict(row))
-                for i in dict_result:
-                    list_db.append(int(dict_result[i]["issue_id"]))
+#                for i in dict_result:
+#                    list_db.append(int(dict_result[i]["issue_id"]))
                 len_dic=len(result_dict)
 #   もしデータベースに予約がなかったらissue_id=1あったらissue_id
                 if len_dic == 0:
                     issue_id=1
                 else:
 
-#                    issue_id=int(dict_result[len_dic-1]["issue_id"])+1
+                    issue_id=int(dict_result[len_dic-1]["issue_id"])+1
                     for i in list_id:
                         if i in list_db:
                             pass
