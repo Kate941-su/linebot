@@ -292,6 +292,7 @@ def response_message(event):
                             pass
                         else:
                             issue_id=i
+                            break
                 #予定の処理
                 ws_w.cell(row=issue_id,column=plan,value=ws.cell(row=b_row,column=buffer3).value)
                 #普通に日付を入れたときの処理
