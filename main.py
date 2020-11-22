@@ -279,20 +279,19 @@ def response_message(event):
             #辞書型に格納
                 for row in result_dict:
                     dict_result.append(dict(row))
-             　     list_db.append(int(dict_result[i]["issue_id"]))
                 len_dic=len(result_dict)
+                for i in range(len_dic):
+                    list_db.append(dict_result[i]["issue_id"])
 #   もしデータベースに予約がなかったらissue_id=1あったらissue_id
                 if len_dic == 0:
                     issue_id=1
                 else:
-
- 
+#                    issue_id=int(dict_result[len_dic-1]["issue_id"])+1
                     for i in list_id:
                         if i in list_db:
                             pass
                         else:
                             issue_id=i
-                            break
                 #予定の処理
                 ws_w.cell(row=issue_id,column=plan,value=ws.cell(row=b_row,column=buffer3).value)
                 #普通に日付を入れたときの処理

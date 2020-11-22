@@ -62,7 +62,7 @@ len_dic=len(result_dict)
 #print(dict_result[len_dic-1]["data"])
 
 #DBの削除
-cur.execute("drop table if exists hellodemo;")
+#cur.execute("drop table if exists hellodemo;")
 
 
 #cur.execute("select id, data from demo")
@@ -70,5 +70,5 @@ cur.execute("drop table if exists hellodemo;")
 #    print(row[0],row[1])
 
 #cur.execute("select * from "+str(user_id))
-cur.execute("delete from user"+str(user_id)+" where issue_id=10000")
+#cur.execute("delete from user"+str(user_id)+" where issue_id=10000")
 
