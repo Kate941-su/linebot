@@ -64,8 +64,8 @@ for row in result_dict:
     dict_result.append(dict(row))
 print(dict_result)
 len_dic=len(result_dict)
-print(len_dic)
-print(dict_result[len_dic-1]["data"])
+#print(len_dic)
+#print(dict_result[len_dic-1]["data"])
 
 #DBの削除
 cur.execute("drop table if exists hellodemo;")

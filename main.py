@@ -104,8 +104,8 @@ def response_message(event):
     b_minute=24
 #buffering_row
     b_row=201
-
-
+    list_db=[]
+    list_id=[i for i in range(1,201)]
     list30=[4,6,9,11]
     list31=[1,3,5,7,8,10,12]
 
@@ -260,7 +260,6 @@ def response_message(event):
                     TextSendMessage(text="入力ミスがあります。\n何時何分に設定しますか\n入力フォーマット例(11時10分のとき):11:10（半角）"),
                     )
                     ws_w.cell(row=b_row,column=flag,value=2)
-    #               ws_w.cell(row=b_row,column=buffer1,value=event.message.text)
                     ws_w.cell(row=b_row,column=mistake,value=Mistake+1)
     #Flag3 phase
 
@@ -280,13 +279,20 @@ def response_message(event):
             #辞書型に格納
                 for row in result_dict:
                     dict_result.append(dict(row))
+                for i in dict_result:
+                    list_db.append(dict_result[i]["issue_id"])
                 len_dic=len(result_dict)
 #   もしデータベースに予約がなかったらissue_id=1あったらissue_id
                 if len_dic == 0:
                     issue_id=1
                 else:
-                    issue_id=int(dict_result[len_dic-1]["issue_id"])+1
 
+#                    issue_id=int(dict_result[len_dic-1]["issue_id"])+1
+                    for i in list_id:
+                        if i in list_db:
+                            pass
+                        else:
+                            issue_id=i
                 #予定の処理
                 ws_w.cell(row=issue_id,column=plan,value=ws.cell(row=b_row,column=buffer3).value)
                 #普通に日付を入れたときの処理
