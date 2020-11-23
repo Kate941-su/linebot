@@ -122,6 +122,7 @@ def response_message(event):
     context = context.format("plan text,yyyy int,MM int,dd int,hh int,mmmm int,send_id text,issue_id int")
     cur.execute("create table if not exists User"+str(User_id)+"("+context+");")
 
+
 #fileの有無　あればそれを開くなければつくってそれを開く
     if os.path.exists("./user"+str(User_id)+".xlsx"):
         wb=px.load_workbook("./user"+str(User_id)+".xlsx")#open xls file(wb=work book)
@@ -162,7 +163,9 @@ def response_message(event):
                     ws_w.cell(row=b_row,column=flag,value=1)
 
                 elif event.message.text == "確認":
+                    cur.execute("select * from User"+str(User_id)+" order by issue_id")
                 #辞書型に格納したいがために新たなcurを定義
+
                     dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
                     dictcur.execute("SELECT * FROM User"+str(User_id)+";")
                     result_dict=dictcur.fetchall()
@@ -231,7 +234,7 @@ def response_message(event):
                     if ids in list_db:
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text="削除しました\n\n"),               
+                        TextSendMessage(text="削除しました"),               
                     )                
                         cur.execute("delete from User"+str(User_id)+" where issue_id="+str(ids))   
                         ws_w.cell(row=b_row,column=flag,value=0)     
