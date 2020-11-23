@@ -163,7 +163,7 @@ def response_message(event):
                     ws_w.cell(row=b_row,column=flag,value=1)
 
                 elif event.message.text == "確認":
-                    cur.execute("select * from User"+str(User_id)+" order by issue_id　ASC")#昇順
+                    cur.execute("select * from User"+str(User_id)+" order by issue_id ASC")#昇順
                 #辞書型に格納したいがために新たなcurを定義
 
                     dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
