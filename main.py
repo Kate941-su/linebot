@@ -160,7 +160,7 @@ def response_message(event):
                     event.reply_token,
                     TextSendMessage(text="使い方を説明します！\n\n最初は、予約と入力してください！その後時刻と予定をこの会話に従って、入力してください！\n\n予定の確認をしたいときは、確認、削除したいときは削除と入力してください！\n\n予約を開始してからは確認、削除はできません。\n\n予約開始時以降３回入力ミスがあると自動的に最初からになるので注意してください。\n\nこの使い方をもう１回表示したいときは、ヘルプと入力してください！\n\n２００件を超えるリマインドは登録できないのでご注意ください。"),               
                 )
-                    ws_w.cell(row=b_row,column=flag,value=1)
+                    ws_w.cell(row=b_row,column=flag,value=0)
 
                 elif event.message.text == "確認":
 
