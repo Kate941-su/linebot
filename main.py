@@ -117,7 +117,6 @@ def response_message(event):
 #    pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
     profile = line_bot_api.get_profile(event.source.user_id)
     User_id=profile.user_id
-    your_name
     this_year=2020
     context = "{}"
     context = context.format("plan text,yyyy int,MM int,dd int,hh int,mmmm int,send_id text,issue_id int")
