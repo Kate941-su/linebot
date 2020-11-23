@@ -117,6 +117,7 @@ def response_message(event):
 #    pattern = r'(0?[1-9]|1[0-2])[/\-月](0?[1-9]|[12][0-9]|3[01])日?$'#日付一致の正規表現
     profile = line_bot_api.get_profile(event.source.user_id)
     User_id=profile.user_id
+    your_name
     this_year=2020
     context = "{}"
     context = context.format("plan text,yyyy int,MM int,dd int,hh int,mmmm int,send_id text,issue_id int")
@@ -569,7 +570,8 @@ def response_message(event):
             TextSendMessage(text="登録までお待ちください"),
         ) 
         user_id = os.environ["MY_ID"]
-        line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+"user"+str(User_id)+"さんが登録を要請しました。\nファイルの作成をしてください。\nファイル名 user"+str(User_id)+".xlsx")
+        
+        line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+"user"+str(profile.display_name))+"さんが登録を要請しました。\nファイルの作成をしてください。\nファイル名 user"+str(User_id)+".xlsx")
         )
 
 
