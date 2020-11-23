@@ -57,7 +57,7 @@ dictcur = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 cur.execute("select relname from pg_class where relkind='r' and relname !~ '^(pg_|sql_)';")
 each_table=cur.fetchall()
 for i in each_table:
-  user_id="userUc638d641cd892715128053544ff83fae"
+  user_id=str(i[0])
   dictcur.execute("SELECT * FROM "+user_id+";")
   result_dict=dictcur.fetchall()
   dict_result = []
