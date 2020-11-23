@@ -80,7 +80,6 @@ for i in each_table:
     nowon+=timedelta(hours=9)
     plan_date=datetime(year=year,month=month,day=day,hour=hour,minute=minute)
     
-
     if nowon >= plan_date:
       line_bot_api.push_message(send_id, TextSendMessage(text=str(plan)+"の時間です。"))
       dictcur.execute("delete from "+user_id+" where issue_id="+str(issue_id))

@@ -106,6 +106,7 @@ def response_message(event):
 #buffering_row
     b_row=201
     list_db=[]
+    delete_db=[]
     list_id=[i for i in range(1,201)]
     list30=[4,6,9,11]
     list31=[1,3,5,7,8,10,12]
@@ -179,6 +180,26 @@ def response_message(event):
                 )
                     ws_w.cell(row=b_row,column=flag,value=0)
 
+
+                elif event.message.text == "削除":
+                #辞書型に格納したいがために新たなcurを定義
+                    dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
+                    dictcur.execute("SELECT * FROM User"+str(User_id)+";")
+                    result_dict=dictcur.fetchall()
+                    dict_result = []
+                #辞書型に格納
+                    send_text="id　予定　月　日　時　分\n\n"
+                    for row in result_dict:
+                        dict_result.append(dict(row))
+                    len_dic=len(result_dict)
+                    for row in dict_result:
+                        send_text+=str(row["issue_id"])+"　"+str(row["plan"])+"　"+str(row["mm"])+"月"+str(row["dd"])+"日　"+str(row["hh"])+"時"+str(row["mmmm"])+"分\n\n"
+                    line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="削除したいidをメッセージで送ってください。idは下の表から確認してください\n\n"+send_text),               
+                )
+                    ws_w.cell(row=b_row,column=flag,value=-1)
+
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
@@ -186,8 +207,45 @@ def response_message(event):
                 )
                     ws_w.cell(row=b_row,column=flag,value=0)
 
-            elif Flag==1:
 
+#Flag-1削除フェーズ
+            elif Flag==-1:
+            #辞書型に格納したいがために新たなcurを定義
+                dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
+                dictcur.execute("SELECT * FROM User"+str(User_id)+";")
+                result_dict=dictcur.fetchall()
+                dict_result = []
+            #辞書型に格納
+                for row in result_dict:
+                    dict_result.append(dict(row))
+                len_dic=len(result_dict)
+                for i in range(len_dic):
+                    delete_db.append(dict_result[i]["issue_id"])
+                delete_id=event.message.text
+                try :
+                    ids=int(delete_id)                
+                    if ids in list_db:
+                        line_bot_api.reply_message(
+                        event.reply_token,
+                        TextSendMessage(text="削除しました\n\n"),               
+                    )                
+                        cur.execute("delete from User"+str(User_id)+" where issue_id="+str(ids))        
+                    else:
+                        line_bot_api.reply_message(
+                        event.reply_token,
+                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\n"),            
+                    ) 
+                        ws_w.cell(row=b_row,column=flag,value=-1)
+                        ws_w.cell(row=b_row,column=mistake,value=Mistake+1)   
+                except:
+                        line_bot_api.reply_message(
+                        event.reply_token,
+                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\n"),                     
+                    )                       
+                        ws_w.cell(row=b_row,column=flag,value=-1)
+                        ws_w.cell(row=b_row,column=mistake,value=Mistake+1)
+
+            elif Flag==1:
                 is_message_date = event.message.text
                 ws_w.cell(row=b_row,column=buffer1,value=is_message_date)
                 wb_w.save("user"+str(User_id)+".xlsx")
