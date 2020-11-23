@@ -151,7 +151,7 @@ def response_message(event):
                 if event.message.text == "予約":
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11/6\n※予約時刻は10分単位で行います1分単位で予約すると10分繰り上げ通知となります"),               
+                    TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11/6（数字スラッシュ半角）\n※予約時刻は10分単位で行います1分単位で予約すると10分繰り上げ通知となります"),               
                 )
                     ws_w.cell(row=b_row,column=flag,value=1)
 
