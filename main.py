@@ -570,7 +570,7 @@ def response_message(event):
         ) 
         user_id = os.environ["MY_ID"]
         
-        line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+"user"+str(profile.display_name)+"さんが登録を要請しました。\nファイルの作成をしてください。\nファイル名 user"+str(User_id)+".xlsx")
+        line_bot_api.push_message(user_id, TextSendMessage(text=str(datetime.now().month)+"月"+str(datetime.now().day)+"日\n"+str(profile.display_name)+"さんが登録を要請しました。\nファイルの作成をしてください。\nファイル名 user"+str(User_id)+".xlsx")
         )
 
 
