@@ -218,9 +218,13 @@ def response_message(event):
             #辞書型に格納
                 for row in result_dict:
                     dict_result.append(dict(row))
+                    
                 len_dic=len(result_dict)
                 for i in range(len_dic):
+                    list_db.append(dict_result[i]["issue_id"])
+                for i in range(len_dic):
                     delete_db.append(dict_result[i]["issue_id"])
+        
                 delete_id=event.message.text
                 try :
                     ids=int(delete_id)                
