@@ -163,7 +163,7 @@ def response_message(event):
                     ws_w.cell(row=b_row,column=flag,value=1)
 
                 elif event.message.text == "確認":
-                    cur.execute("select * from User"+str(User_id)+" order by issue_id")
+                    cur.execute("select * from User"+str(User_id)+" order by issue_id　ASC")#昇順
                 #辞書型に格納したいがために新たなcurを定義
 
                     dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
@@ -531,7 +531,7 @@ def response_message(event):
                     if type(ws.cell(row=b_row,column=buffer1).value) == type("hello"):#buffer1の内容はb_rowからissue_idに移していない
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+"の"+str(ws.cell(row=issue_id,column=hh).value)+"時"+str(ws.cell(row=issue_id,column=mm).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"+str(issue_id)),        
+                        TextSendMessage(text=str(ws.cell(row=b_row,column=buffer1).value)+"の"+str(ws.cell(row=issue_id,column=hh).value)+"時"+str(ws.cell(row=issue_id,column=mm).value)+"分に"+"”"+str(ws.cell(row=b_row,column=buffer3).value)+"”"+"で予約しました。\n"),        
                         )
                     else:
                         line_bot_api.reply_message(
