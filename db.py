@@ -57,8 +57,8 @@ dictcur = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 cur.execute("select relname from pg_class where relkind='r' and relname !~ '^(pg_|sql_)';")
 each_table=cur.fetchall()
 for i in each_table:
-  send_id=str(i[0])
-  dictcur.execute("SELECT * FROM "+send_id+";")
+  user_id="userUc638d641cd892715128053544ff83fae"
+  dictcur.execute("SELECT * FROM "+user_id+";")
   result_dict=dictcur.fetchall()
   dict_result = []
   #ここのループで辞書にしている
@@ -74,6 +74,7 @@ for i in each_table:
     hour=dict_result[row]["hh"]
     minute=dict_result[row]["mmmm"]
     issue_id=dict_result[row]["issue_id"]
+    send_id=dict_result[row]["send_id"]
     #日本時間に合わせる作業
     nowon=datetime.now()
     nowon+=timedelta(hours=9)
@@ -81,8 +82,7 @@ for i in each_table:
 
     if nowon >= plan_date:
       line_bot_api.push_message(send_id, TextSendMessage(text=str(plan)+"の時間です。"))
-      dictcur.execute("delete from "+send_id+" where issue_id="+str(issue_id))
-
+      dictcur.execute("delete from "+user_id+" where issue_id="+str(issue_id))
 
 #print(len_dic)
 #print(dict_result[len_dic-1]["data"])
