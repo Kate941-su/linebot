@@ -163,11 +163,12 @@ def response_message(event):
                     ws_w.cell(row=b_row,column=flag,value=1)
 
                 elif event.message.text == "確認":
-                    cur.execute("select * from User"+str(User_id)+" order by issue_id DESC")#昇順
+
                 #辞書型に格納したいがために新たなcurを定義
 
                     dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
-                    dictcur.execute("SELECT * FROM User"+str(User_id)+";")
+#                    diccur.execute("select * from User"+str(User_id)+" order by issue_id DESC")#昇順
+                    dictcur.execute("SELECT * FROM User"+str(User_id)+" order by issue_id DESC")
                     result_dict=dictcur.fetchall()
                     dict_result = []
                 #辞書型に格納
