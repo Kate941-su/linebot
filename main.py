@@ -233,7 +233,8 @@ def response_message(event):
                         event.reply_token,
                         TextSendMessage(text="削除しました\n\n"),               
                     )                
-                        cur.execute("delete from User"+str(User_id)+" where issue_id="+str(ids))        
+                        cur.execute("delete from User"+str(User_id)+" where issue_id="+str(ids))   
+                        ws_w.cell(row=b_row,column=flag,value=0)     
                     else:
                         line_bot_api.reply_message(
                         event.reply_token,
