@@ -203,7 +203,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="予約したいときは”予約と入力してください”"),
+                    TextSendMessage(text="不正な入力です！\nリマインダに予定を登録したい→予約\nリマインダの予定を確認したい→確認\nリマインダの予定を削除したい→削除"),
                 )
                     ws_w.cell(row=b_row,column=flag,value=0)
 
