@@ -152,6 +152,33 @@ def response_message(event):
                     TextSendMessage(text="予約を行います日付を教えてください\nex)明日、今日、明後日、11/6\n※予約時刻は10分単位で行います1分単位で予約すると10分繰り上げ通知となります"),               
                 )
                     ws_w.cell(row=b_row,column=flag,value=1)
+
+                elif event.message.text == "ヘルプ":
+                    line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="使い方を説明します！\n\n最初は、予約と入力してください！その後時刻と予定をこの会話に従って、入力してください！\n\n予定の確認をしたいときは、確認、削除したいときは削除と入力してください！\n\n予約を開始してからは確認、削除はできません。\n\n予約開始時以降３回入力ミスがあると自動的に最初からになるので注意してください。\n\nこの使い方をもう１回表示したいときは、ヘルプと入力してください！\n\n２００件を超えるリマインドは登録できないのでご注意ください。"),               
+                )
+                    ws_w.cell(row=b_row,column=flag,value=1)
+
+                elif event.message.text == "確認":
+                #辞書型に格納したいがために新たなcurを定義
+                    dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
+                    dictcur.execute("SELECT * FROM User"+str(User_id)+";")
+                    result_dict=dictcur.fetchall()
+                    dict_result = []
+                #辞書型に格納
+                    send_text="id　予定　月　日　時　分\n\n"
+                    for row in result_dict:
+                        dict_result.append(dict(row))
+                    len_dic=len(result_dict)
+                    for row in dict_result:
+                        send_text+=str(row["id"])+"　"+str(row["plan"])+"　"+str(row["mm"])+"月"+str(row["dd"])+"日　"+str(row["hh"])+"時"+str(row["mm"])+"分\n\n"
+                    line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(text="予定の確認をします\n"+send_text),               
+                )
+                    ws_w.cell(row=b_row,column=flag,value=1)
+
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
@@ -427,6 +454,7 @@ def response_message(event):
                 Issue_id=issue_id
 
                 cur.execute("insert into User"+str(User_id)+" values(%s,%s,%s,%s,%s,%s,%s,%s);",(Plan,Year,Month,Day,Hour,Minute,Send_id,Issue_id))
+                cur.execute("select * from User"+str(User_id)+" order by issue_id")
                 if issue_id == 200:
                     line_bot_api.reply_message(
                     event.reply_token,
@@ -466,6 +494,7 @@ def response_message(event):
     #            ws_w.cell(row=b_row,column=flag,value=0) 
         
         wb_w.save("user"+str(User_id)+".xlsx")
+        connection.close()
 
     else:
         line_bot_api.reply_message(

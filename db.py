@@ -79,6 +79,7 @@ for i in each_table:
     nowon=datetime.now()
     nowon+=timedelta(hours=9)
     plan_date=datetime(year=year,month=month,day=day,hour=hour,minute=minute)
+    
 
     if nowon >= plan_date:
       line_bot_api.push_message(send_id, TextSendMessage(text=str(plan)+"の時間です。"))
