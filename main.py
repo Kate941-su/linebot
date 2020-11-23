@@ -207,7 +207,7 @@ def response_message(event):
                 else:
                     line_bot_api.reply_message(
                     event.reply_token,
-                    TextSendMessage(text="不正な入力です！\nリマインダに予定を登録したい→予約\nリマインダの予定を確認したい→確認\nリマインダの予定を削除したい→削除"),
+                    TextSendMessage(text="不正な入力です！\nリマインダに予定を登録したい→予約\nリマインダの予定を確認したい→確認\nリマインダの予定を削除したい→削除\nマニュアルの表示→ヘルプ"),
                 )
                     ws_w.cell(row=b_row,column=flag,value=0)
 
