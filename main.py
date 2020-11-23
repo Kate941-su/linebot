@@ -172,7 +172,7 @@ def response_message(event):
                         dict_result.append(dict(row))
                     len_dic=len(result_dict)
                     for row in dict_result:
-                        send_text+=str(row["issue_id"])+"　"+str(row["plan"])+"　"+str(row["mm"])+"月"+str(row["dd"])+"日　"+str(row["hh"])+"時"+str(row["mm"])+"分\n\n"
+                        send_text+=str(row["issue_id"])+"　"+str(row["plan"])+"　"+str(row["mm"])+"月"+str(row["dd"])+"日　"+str(row["hh"])+"時"+str(row["mmmm"])+"分\n\n"
                     line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(text="予定の確認をします\n"+send_text),               
