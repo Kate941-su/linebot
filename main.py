@@ -177,7 +177,7 @@ def response_message(event):
                     event.reply_token,
                     TextSendMessage(text="予定の確認をします\n"+send_text),               
                 )
-                    ws_w.cell(row=b_row,column=flag,value=1)
+                    ws_w.cell(row=b_row,column=flag,value=0)
 
                 else:
                     line_bot_api.reply_message(
