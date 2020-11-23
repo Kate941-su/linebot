@@ -168,7 +168,7 @@ def response_message(event):
 
                     dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
 #                    diccur.execute("select * from User"+str(User_id)+" order by issue_id DESC")#昇順
-                    dictcur.execute("SELECT * FROM User"+str(User_id)+" order by issue_id DESC")
+                    dictcur.execute("SELECT * FROM User"+str(User_id)+" order by issue_id ASC")
                     result_dict=dictcur.fetchall()
                     dict_result = []
                 #辞書型に格納
