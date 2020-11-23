@@ -233,14 +233,14 @@ def response_message(event):
                     else:
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\n"),            
+                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\n"+str(ids)),            
                     ) 
                         ws_w.cell(row=b_row,column=flag,value=-1)
                         ws_w.cell(row=b_row,column=mistake,value=Mistake+1)   
                 except:
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\n"),                     
+                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\n"+str(ids)),                     
                     )                       
                         ws_w.cell(row=b_row,column=flag,value=-1)
                         ws_w.cell(row=b_row,column=mistake,value=Mistake+1)
