@@ -188,7 +188,7 @@ def response_message(event):
                 elif event.message.text == "削除":
                 #辞書型に格納したいがために新たなcurを定義
                     dictcur = connection.cursor(cursor_factory=p2.extras.DictCursor)
-                    dictcur.execute("SELECT * FROM User"+str(User_id)+";")
+                    dictcur.execute("SELECT * FROM User"+str(User_id)+" order by issue_id ASC")
                     result_dict=dictcur.fetchall()
                     dict_result = []
                 #辞書型に格納
