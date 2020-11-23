@@ -218,7 +218,7 @@ def response_message(event):
             #辞書型に格納
                 for row in result_dict:
                     dict_result.append(dict(row))
-                    
+
                 len_dic=len(result_dict)
                 for i in range(len_dic):
                     list_db.append(dict_result[i]["issue_id"])
@@ -237,7 +237,7 @@ def response_message(event):
                     else:
                         line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\nhelloworld"+,            
+                        TextSendMessage(text="そのようなデータはありません。削除したいidをメッセージで送ってください。\n\nhelloworld")          
                     ) 
                         ws_w.cell(row=b_row,column=flag,value=-1)
                         ws_w.cell(row=b_row,column=mistake,value=Mistake+1)   
